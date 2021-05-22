@@ -25,3 +25,5 @@ ${OBJ}: ${HDR}
 clean:
 	rm ${OBJ}
 	rm ${EXE}
+
+.PHONY: clean
