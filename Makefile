@@ -16,6 +16,14 @@ LIB_INI = vendor/iniparser/libiniparser.a
 OBJ = ${SRC:.c=.o}
 EXE = dsjas
 
+CFLAGS ?= -Wall -Wpedantic
+
+ifeq (${DEBUG}, 1)
+	CFLAGS += -g
+else
+	CFLAGS += -O2
+endif
+
 
 ${EXE}: ${OBJ} ${LIB_INI}
 	${CC} ${LDFLAGS} -o ${EXE} ${OBJ} ${LIB_INI}
@@ -26,7 +34,7 @@ ${LIB_INI}:
 	${MAKE} -C ${LIB_INIPATH}
 
 %.o: %.c
-	${CC} ${CFLAGS} -o $@ -c $<
+	${CC} ${CFLAGS} -I${DIRS} -I${LIB_INIPATH}/src -o $@ -c $<
 
 clean:
 	rm ${OBJ}
