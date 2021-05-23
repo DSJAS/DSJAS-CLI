@@ -6,7 +6,7 @@
 export SRC
 export HDR
 
-DIRS = src
+DIRS = src src/util
 
 include $(addsuffix /Makefile.inc, ${DIRS})
 
@@ -34,7 +34,7 @@ ${LIB_INI}:
 	${MAKE} -C ${LIB_INIPATH}
 
 %.o: %.c
-	${CC} ${CFLAGS} -I${DIRS} -I${LIB_INIPATH}/src -o $@ -c $<
+	${CC} ${CFLAGS} $(addprefix -I, ${DIRS}) -I${LIB_INIPATH}/src -o $@ -c $<
 
 clean:
 	rm ${OBJ}
