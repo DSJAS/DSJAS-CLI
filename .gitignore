@@ -1,2 +1,5 @@
 *.o
 dsjas
+
+compile_commands.json
+.cache/
