@@ -10,7 +10,7 @@ DIRS = src
 
 include $(addsuffix /Makefile.inc, ${DIRS})
 
-LIB_INIPATH = vendor/iniparser/
+LIB_INIPATH = vendor/iniparser
 LIB_INI = vendor/iniparser/libiniparser.a
 
 OBJ = ${SRC:.c=.o}
@@ -31,6 +31,7 @@ ${LIB_INI}:
 clean:
 	rm ${OBJ}
 	rm ${EXE}
-	${MAKE} -C ${LIB_INIPATH} veryclean
+	rm ${LIB_INIPATH}/src/*.o
+	rm ${LIB_INI}
 
 .PHONY: clean
