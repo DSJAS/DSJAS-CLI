@@ -18,7 +18,7 @@ EXE = dsjas
 
 
 ${EXE}: ${OBJ} ${LIB_INI}
-	${CC} -o ${EXE} ${OBJ} ${LIB_INI}
+	${CC} ${LDFLAGS} -o ${EXE} ${OBJ} ${LIB_INI}
 
 ${OBJ}: ${HDR}
 
