@@ -10,14 +10,20 @@ DIRS = src
 
 include $(addsuffix /Makefile.inc, ${DIRS})
 
+LIB_INIPATH = vendor/iniparser/
+LIB_INI = vendor/iniparser/libiniparser.a
+
 OBJ = ${SRC:.c=.o}
 EXE = dsjas
 
 
-${EXE}: ${OBJ}
-	${CC} -o ${EXE} ${OBJ}
+${EXE}: ${OBJ} ${LIB_INI}
+	${CC} -o ${EXE} ${OBJ} ${LIB_INI}
 
 ${OBJ}: ${HDR}
+
+${LIB_INI}:
+	${MAKE} -C ${LIB_INIPATH}
 
 %.o: %.c
 	${CC} ${CFLAGS} -o $@ -c $<
@@ -25,5 +31,6 @@ ${OBJ}: ${HDR}
 clean:
 	rm ${OBJ}
 	rm ${EXE}
+	${MAKE} -C ${LIB_INIPATH} veryclean
 
 .PHONY: clean
