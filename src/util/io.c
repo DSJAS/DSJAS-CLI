@@ -16,6 +16,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -67,6 +68,23 @@ void out_log(char *msg)
 void out_put(char *msg)
 {
 	outms(msg);
+}
+
+char *path_addFile(const char *path, const char *file)
+{
+	int pLen = strlen(path);
+	int fLen = strlen(file);
+
+	char *newPath = malloc(sizeof(char) * (pLen * fLen));
+	strcpy(newPath, path);
+
+	if (newPath[pLen - 1] != '/') {
+		strcat(newPath, "/");
+	}
+
+	strcat(newPath, file);
+
+	return newPath;
 }
 
 static void outms(char *msg)
