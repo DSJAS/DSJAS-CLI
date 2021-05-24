@@ -58,7 +58,17 @@ void version()
 
 int main(int argc, char **argv)
 {
+	/* Parse argument array */
 	arg_parse(&gOpts, argc, argv);
+	if (!gOpts.pathOverride) {
+		getcwd(gOpts.path, 256);
+	}
+
+	/* Verify installation */
+	if (!path_isInstall(gOpts.path)) {
+		err("Invalid DSJAS install");
+		return -1;
+	}
 
 	return 0;
 }

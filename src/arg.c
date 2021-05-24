@@ -15,17 +15,25 @@
  */
 
 #include <stdio.h>
+#include <dirent.h>
 #include <getopt.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
 #include "DSJAS.h"
+#include "util.h"
 
 static const char *globOpts = "huvVqp:";
 
+static const char *installFiles[] = {"Index.php", "Config.ini", "Version.json",
+									 ".htaccess", NULL};
+static const int installFileModes[] = {R_OK, W_OK, W_OK, R_OK};
+
 void arg_parse(global_options *opts, int argc, char **argv)
 {
+	bool pathOverride = false;
+
 	int opt;
 	while ((opt = getopt(argc, argv, globOpts)) != -1) {
 		switch (opt) {
@@ -46,6 +54,7 @@ void arg_parse(global_options *opts, int argc, char **argv)
 			break;
 		case 'p':
 			strncpy(opts->path, optarg, 255);
+			pathOverride = true;
 			break;
 		default:
 			exit(-1);
@@ -53,4 +62,30 @@ void arg_parse(global_options *opts, int argc, char **argv)
 	}
 
 	opts->gflags_end = optind;
+	opts->pathOverride = pathOverride;
+}
+
+bool path_isInstall(char *path)
+{
+	DIR *pDir = opendir(path);
+	if (!pDir)
+		return false;
+
+	closedir(pDir);
+
+	int i = 0;
+	while (installFiles[i] != NULL) {
+		int mode = installFileModes[i];
+		char *file = path_addFile(path, installFiles[i]);
+
+		if ((!access(file, mode)) == 0) {
+			free(file);
+			return false;
+		}
+
+		free(file);
+		i++;
+	}
+
+	return true;
 }

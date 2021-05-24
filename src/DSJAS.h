@@ -32,8 +32,11 @@ typedef struct global_options {
 	bool quiet;
 
 	char path[256];
+	bool pathOverride;
 } global_options;
 
 void arg_parse(global_options *opts, int argc, char **argv);
+
+bool path_isInstall(char *path);
 
 #endif // UTIL_H_
