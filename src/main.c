@@ -16,11 +16,49 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#ifdef unix
+#include <stdbool.h>
+#include <stdint.h>
 #include <unistd.h>
-#endif
+
+#include "DSJAS.h"
+#include "util.h"
+
+global_options gOpts;
+
+void usage()
+{
+	puts("dsjas: DSJAS-CLI Tool");
+	puts("Usage: [-huvVqp] [section] [command] [args]");
+	exit(-1);
+}
+
+void help()
+{
+	puts("dsjas: DSJAS-CLI Tool");
+	puts("Usage: [-huvVqp] [section] [command] [args]");
+
+	puts("\nGlobal options:");
+	puts("\t-V: Verbose output");
+	puts("\t-q: Quiet output");
+	puts("\t-p: Set DSJAS path");
+	puts("\t-u: Print usage");
+	puts("\t-h: This message");
+
+	puts("\nCommand sections");
+	puts("\tcreate: Create themes, modules and extensions from boilerplates");
+	puts("\tinfo: Get info about a DSJAS install");
+
+	exit(-1);
+}
+
+void version()
+{
+	exit(-1);
+}
 
 int main(int argc, char **argv)
 {
+	arg_parse(&gOpts, argc, argv);
+
+	return 0;
 }
