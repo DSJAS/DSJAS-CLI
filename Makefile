@@ -16,6 +16,8 @@ LIB_INI = vendor/iniparser/libiniparser.a
 OBJ = ${SRC:.c=.o}
 EXE = dsjas
 
+INSDIR = /usr/local/bin
+
 CFLAGS ?= -Wall -Wpedantic
 
 ifeq (${DEBUG}, 1)
@@ -36,10 +38,18 @@ ${LIB_INI}:
 %.o: %.c
 	${CC} ${CFLAGS} $(addprefix -I, ${DIRS}) -I${LIB_INIPATH}/src -o $@ -c $<
 
+install: ${EXE}
+	mkdir -p ${INSDIR}
+	cp -f ${EXE} ${INSDIR}
+	chmod 775 ${INSDIR}/${EXE}
+
+uninstall:
+	rm -f ${INSDIR}/${EXE}
+
 clean:
 	rm ${OBJ}
 	rm ${EXE}
 	rm ${LIB_INIPATH}/src/*.o
 	rm ${LIB_INI}
 
-.PHONY: clean
+.PHONY: clean install uninstall
