@@ -22,6 +22,7 @@
 
 #include "DSJAS.h"
 #include "util.h"
+#include "ver.h"
 
 global_options gOpts;
 
@@ -53,6 +54,9 @@ void help()
 
 void version()
 {
+	puts("dsjas: DSJAS-CLI Tool");
+	printf("Version %i.%i.%i, built at %s %s\n", major_ver, minor_ver,
+		   patch_ver, build_date, build_time);
 	exit(-1);
 }
 
