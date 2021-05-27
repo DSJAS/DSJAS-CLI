@@ -24,7 +24,7 @@
 #include "DSJAS.h"
 #include "util.h"
 
-static const char *globOpts = "huvVqp:";
+static const char *globOpts = "+huvVqp:";
 
 static const char *installFiles[] = {"Index.php", "Config.ini", "Version.json",
 									 ".htaccess", NULL};
@@ -57,12 +57,32 @@ void arg_parse(global_options *opts, int argc, char **argv)
 			pathOverride = true;
 			break;
 		default:
-			exit(-1);
+			goto end;
 		}
 	}
 
+end:
+	if (optind < argc) {
+		if (argv[optind][0] == '-') {
+			usage();
+		}
+	}
+
+	if (!pathOverride) {
+		getcwd(opts->path, 256);
+	}
+
 	opts->gflags_end = optind;
-	opts->pathOverride = pathOverride;
+
+	if (optind + 2 > argc) {
+		err("Expected [section] [command]");
+		usage();
+	}
+
+	opts->section = argv[optind];
+	opts->cmd = argv[optind + 1];
+	opts->numSubOpts = argc - optind - 2;
+	opts->subOpts = &argv[optind + 2];
 }
 
 bool path_isInstall(char *path)

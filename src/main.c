@@ -16,6 +16,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <unistd.h>
@@ -64,14 +65,19 @@ int main(int argc, char **argv)
 {
 	/* Parse argument array */
 	arg_parse(&gOpts, argc, argv);
-	if (!gOpts.pathOverride) {
-		getcwd(gOpts.path, 256);
-	}
 
 	/* Verify installation */
 	if (!path_isInstall(gOpts.path)) {
 		err("Invalid DSJAS install");
 		return -1;
+	}
+
+	/* Pass control to subcommand */
+	if (strcmp(gOpts.section, "create") == 0) {
+	} else if (strcmp(gOpts.section, "info") == 0) {
+	} else {
+		err("Invalid subcommand");
+		help();
 	}
 
 	return 0;
