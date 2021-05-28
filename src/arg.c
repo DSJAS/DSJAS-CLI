@@ -26,9 +26,16 @@
 
 static const char *globOpts = "+huvVqp:";
 
-static const char *installFiles[] = {"Index.php", "Config.ini", "Version.json",
-									 ".htaccess", NULL};
-static const int installFileModes[] = {R_OK, W_OK, W_OK, R_OK};
+static const char *installFiles[] = {"Index.php",
+									 "Config.ini",
+									 "admin/site/UI/config.ini",
+									 "admin/site/modules/config.ini",
+									 "admin/site/extensions/config.ini",
+									 "Version.json",
+									 ".htaccess",
+									 NULL};
+static const int installFileModes[] = {R_OK, W_OK, W_OK, W_OK,
+									   W_OK, W_OK, R_OK};
 
 void arg_parse(global_options *opts, int argc, char **argv)
 {
