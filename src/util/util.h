@@ -40,5 +40,6 @@ void out_put(char *msg);
 
 /* FILEIO */
 char *path_addFile(const char *path, const char *file);
+long file_getSize(const char *path);
 
 #endif // UTIL_H
