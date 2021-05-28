@@ -12,6 +12,12 @@ include $(addsuffix /Makefile.inc, ${DIRS})
 
 LIB_INIPATH = vendor/iniparser
 LIB_INI = vendor/iniparser/libiniparser.a
+LIB_JSONPPATH = vendor/json/parser
+LIB_JSONP = ${LIB_JSONPPATH}/libjsonparser.a
+LIB_JSONBPATH = vendor/json/builder
+LIB_JSONB = ${LIB_JSONBPATH}/libjsonbuilder.a
+
+LIBS = ${LIB_INI} ${LIB_JSONP} ${LIB_JSONB}
 
 OBJ = ${SRC:.c=.o}
 EXE = dsjas
@@ -27,16 +33,26 @@ else
 endif
 
 
-${EXE}: ${OBJ} ${LIB_INI}
-	${CC} ${LDFLAGS} -o ${EXE} ${OBJ} ${LIB_INI}
+${EXE}: ${OBJ} ${LIB_INI} ${LIB_JSONP} ${LIB_JSONB}
+	${CC} ${LDFLAGS} -o ${EXE} ${OBJ} ${LIBS}
 
 ${OBJ}: ${HDR}
 
 ${LIB_INI}:
 	${MAKE} -C ${LIB_INIPATH}
 
+${LIB_JSONP}: ${LIB_JSONPPATH}/Makefile
+	${MAKE} -C ${LIB_JSONPPATH}
+
+${LIB_JSONB}: ${LIB_JSONBPATH}/json-builder.c ${LIB_JSONBPATH}/json-builder.h
+	${CC} ${CFLAGS} -c -o ${LIB_JSONBPATH}/json-builder.o -I${LIB_JSONPPATH} ${LIB_JSONBPATH}/json-builder.c
+	${AR} rcs ${LIB_JSONB} ${LIB_JSONBPATH}/json-builder.o
+
+${LIB_JSONPPATH}/Makefile:
+	cd ${LIB_JSONPPATH} && ./configure
+
 %.o: %.c
-	${CC} ${CFLAGS} $(addprefix -I, ${DIRS}) -I${LIB_INIPATH}/src -o $@ -c $<
+	${CC} ${CFLAGS} $(addprefix -I, ${DIRS}) -I${LIB_INIPATH}/src -I${LIB_JSONPPATH} -o $@ -c $<
 
 install: ${EXE}
 	mkdir -p ${INSDIR}
@@ -49,7 +65,13 @@ uninstall:
 clean:
 	rm ${OBJ}
 	rm ${EXE}
+
+libclean: clean
 	rm ${LIB_INIPATH}/src/*.o
 	rm ${LIB_INI}
+	rm ${LIB_JSONPPATH}/*.o
+	rm ${LIB_JSONP}
+	rm ${LIB_JSONB}
+	rm ${LIB_JSONBPATH}/*.o
 
-.PHONY: clean install uninstall
+.PHONY: clean libclean install uninstall
