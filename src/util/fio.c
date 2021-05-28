@@ -50,3 +50,19 @@ long file_getSize(const char *path)
 
 	return fsize;
 }
+
+char *file_getContents(const char *path)
+{
+	FILE *f = fopen(path, "r");
+	long size = file_getSize(path);
+
+	if (!f) {
+		return "";
+	}
+
+	char *cont = malloc(sizeof(char) * size);
+	fread(cont, sizeof(char), size, f);
+
+	fclose(f);
+	return cont;
+}
