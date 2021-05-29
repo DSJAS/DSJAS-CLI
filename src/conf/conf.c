@@ -32,6 +32,12 @@ static void init_module(DSJAS *state);
 static void init_extension(DSJAS *state);
 static void init_version(DSJAS *state);
 
+static void destroy_global(DSJAS *state);
+static void destroy_theme(DSJAS *state);
+static void destroy_module(DSJAS *state);
+static void destroy_extension(DSJAS *state);
+static void destroy_version(DSJAS *state);
+
 void init_configs(DSJAS *state)
 {
 	init_global(state);
@@ -44,38 +50,16 @@ void init_configs(DSJAS *state)
 
 void destroy_configs(DSJAS *state)
 {
-	char *gfn = path_addFile(gOpts.path, "Config.ini");
-	char *tfn = path_addFile(gOpts.path, "admin/site/UI/config.ini");
-	char *mfn = path_addFile(gOpts.path, "admin/site/UI/config.ini");
-	char *efn = path_addFile(gOpts.path, "admin/site/UI/config.ini");
-
-	FILE *gf = fopen(gfn, "r+");
-	FILE *tf = fopen(tfn, "r+");
-	FILE *mf = fopen(mfn, "r+");
-	FILE *ef = fopen(efn, "r+");
-
-	ini_serialise(state->config.glb, gf);
-	ini_serialise(state->config.thm, tf);
-	ini_serialise(state->config.mod, mf);
-	ini_serialise(state->config.ext, ef);
+	destroy_global(state);
+	destroy_theme(state);
+	destroy_module(state);
+	destroy_extension(state);
+	destroy_version(state);
 
 	iniparser_freedict(state->config.glb);
 	iniparser_freedict(state->config.thm);
 	iniparser_freedict(state->config.mod);
 	iniparser_freedict(state->config.ext);
-
-	json_value_free(state->version.vers);
-	fclose(state->version.versConfig);
-
-	fclose(gf);
-	fclose(tf);
-	fclose(mf);
-	fclose(ef);
-
-	free(gfn);
-	free(tfn);
-	free(mfn);
-	free(efn);
 }
 
 static void init_global(DSJAS *state)
@@ -96,7 +80,7 @@ static void init_theme(DSJAS *state)
 
 static void init_module(DSJAS *state)
 {
-	char *filename = path_addFile(gOpts.path, "admin/site/UI/config.ini");
+	char *filename = path_addFile(gOpts.path, "admin/site/modules/config.ini");
 	state->config.mod = iniparser_load(filename);
 
 	free(filename);
@@ -142,4 +126,46 @@ static void init_version(DSJAS *state)
 
 	free(filename);
 	free(cont);
+}
+
+static void destroy_global(DSJAS *state)
+{
+	char *gfn = path_addFile(gOpts.path, "Config.ini");
+	FILE *gf = fopen(gfn, "r+");
+
+	ini_serialise(state->config.glb, gf);
+
+	fclose(gf);
+	free(gfn);
+}
+
+static void destroy_theme(DSJAS *state)
+{
+	char *tfn = path_addFile(gOpts.path, "admin/site/UI/config.ini");
+	FILE *tf = fopen(tfn, "r+");
+	ini_serialise(state->config.thm, tf);
+
+	fclose(tf);
+	free(tfn);
+}
+
+static void destroy_module(DSJAS *state)
+{
+	char *tfn = path_addFile(gOpts.path, "admin/site/modules/config.ini");
+	FILE *tf = fopen(tfn, "r+");
+	ini_serialise(state->config.mod, tf);
+
+	fclose(tf);
+	free(tfn);
+}
+
+static void destroy_extension(DSJAS *state)
+{
+	return;
+}
+
+static void destroy_version(DSJAS *state)
+{
+	json_value_free(state->version.vers);
+	fclose(state->version.versConfig);
 }
