@@ -15,6 +15,10 @@
  */
 
 #include <stdbool.h>
+#include <stdio.h>
+
+#include "iniparser.h"
+#include "json.h"
 
 #ifndef __DSJAS_H__
 #define __DSJAS_H__
@@ -41,5 +45,71 @@ typedef struct global_options {
 
 void arg_parse(global_options *opts, int argc, char **argv);
 bool path_isInstall(char *path);
+
+/* DSJAS config/state */
+typedef enum InstallState {
+	greeting = 0,
+	verification = 1,
+	database = 2,
+	finalised = 3
+} InstallState;
+
+typedef struct dsjas_install {
+	struct {
+		dictionary *glb;
+		dictionary *thm;
+		dictionary *mod;
+		dictionary *ext;
+
+		struct {
+			bool installed;
+			InstallState installState;
+
+			bool usingDatabase;
+			char *hostname;
+			char *dbName;
+			char *un;
+			char *pw;
+
+			char *name;
+			char *domain;
+
+			bool adminDisabled;
+			bool adminMissing;
+		} global;
+
+		struct {
+			bool udefault;
+			char *cur;
+
+			int lastValidation;
+		} theme;
+
+		struct {
+			char **installed;
+			char **enabled;
+			char **disabled;
+
+			int numInstalled;
+			int numEnabled;
+		} module;
+
+		struct {
+			char placeholder;
+		} extension;
+	} config;
+
+	struct {
+		FILE *versConfig;
+		json_value *vers;
+
+		int major;
+		int minor;
+		int patch;
+
+		char *name;
+		char *description;
+	} version;
+} DSJAS;
 
 #endif // UTIL_H_

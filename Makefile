@@ -6,7 +6,7 @@
 export SRC
 export HDR
 
-DIRS = src src/util
+DIRS = src src/util src/conf
 
 include $(addsuffix /Makefile.inc, ${DIRS})
 
@@ -34,7 +34,7 @@ endif
 
 
 ${EXE}: ${OBJ} ${LIB_INI} ${LIB_JSONP} ${LIB_JSONB}
-	${CC} ${LDFLAGS} -o ${EXE} ${OBJ} ${LIBS}
+	${CC} ${LDFLAGS} -lm -o ${EXE} ${OBJ} ${LIBS}
 
 ${OBJ}: ${HDR}
 

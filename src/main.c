@@ -24,8 +24,10 @@
 #include "DSJAS.h"
 #include "util.h"
 #include "ver.h"
+#include "conf.h"
 
 global_options gOpts;
+DSJAS gInstall;
 
 void usage()
 {
@@ -72,13 +74,19 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
+	/* Init configs */
+	init_configs(&gInstall);
+
 	/* Pass control to subcommand */
 	if (strcmp(gOpts.section, "create") == 0) {
 	} else if (strcmp(gOpts.section, "info") == 0) {
 	} else {
 		err("Invalid subcommand");
+		destroy_configs(&gInstall);
 		help();
 	}
+
+	destroy_configs(&gInstall);
 
 	return 0;
 }
