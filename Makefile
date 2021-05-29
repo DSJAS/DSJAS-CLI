@@ -6,7 +6,7 @@
 export SRC
 export HDR
 
-DIRS = src src/util src/conf
+DIRS = src src/util src/conf src/info src/create
 
 include $(addsuffix /Makefile.inc, ${DIRS})
 

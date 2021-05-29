@@ -26,6 +26,9 @@
 #include "ver.h"
 #include "conf.h"
 
+#include "info.h"
+#include "create.h"
+
 global_options gOpts;
 DSJAS gInstall;
 
@@ -79,13 +82,16 @@ int main(int argc, char **argv)
 
 	/* Pass control to subcommand */
 	if (strcmp(gOpts.section, "create") == 0) {
+		create_init();
 	} else if (strcmp(gOpts.section, "info") == 0) {
+		info_init();
 	} else {
 		err("Invalid subcommand");
 		destroy_configs(&gInstall);
 		help();
 	}
 
+	/* Write and free configs */
 	destroy_configs(&gInstall);
 
 	return 0;
