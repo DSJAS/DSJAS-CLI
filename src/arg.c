@@ -22,7 +22,7 @@
 #include <unistd.h>
 
 #include "DSJAS.h"
-#include "util.h"
+#include "util/util.h"
 
 static const char *globOpts = "+huvVqp:";
 

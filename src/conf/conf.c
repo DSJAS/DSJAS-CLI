@@ -22,7 +22,7 @@
 #include "json.h"
 
 #include "conf.h"
-#include "util.h"
+#include "util/util.h"
 
 extern global_options gOpts;
 

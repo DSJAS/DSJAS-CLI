@@ -2,6 +2,6 @@
 # Dir: src/create
 # Purpose: Create new DSJAS objects
 
-SRC += src/create/create.c
+SRC += src/cmd/create/create.c
 
-HDR += src/create/create.h
+HDR += src/cmd/create/create.h

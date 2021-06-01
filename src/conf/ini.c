@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "util.h"
+#include "util/util.h"
 #include "conf.h"
 
 #include "iniparser.h"

@@ -6,7 +6,8 @@
 export SRC
 export HDR
 
-DIRS = src src/util src/conf src/info src/create
+CMDS = info create
+DIRS = src src/util src/conf src/cmd $(addprefix src/cmd/, ${CMDS})
 
 include $(addsuffix /Makefile.inc, ${DIRS})
 
@@ -52,7 +53,7 @@ ${LIB_JSONPPATH}/Makefile:
 	cd ${LIB_JSONPPATH} && ./configure
 
 %.o: %.c
-	${CC} ${CFLAGS} $(addprefix -I, ${DIRS}) -I${LIB_INIPATH}/src -I${LIB_JSONPPATH} -o $@ -c $<
+	${CC} ${CFLAGS} -Isrc/ -I${LIB_INIPATH}/src -I${LIB_JSONPPATH} -o $@ -c $<
 
 install: ${EXE}
 	mkdir -p ${INSDIR}

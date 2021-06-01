@@ -18,7 +18,7 @@
 #include <string.h>
 #include <math.h>
 
-#include "util.h"
+#include "util/util.h"
 #include "conf.h"
 
 json_value *json_findKey(char *key, json_value root)

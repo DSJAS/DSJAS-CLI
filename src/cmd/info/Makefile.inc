@@ -2,6 +2,6 @@
 # Dir: src/info
 # Purpose: Get information about DSJAS install
 
-SRC += src/info/info.c
+SRC += src/cmd/info/info.c
 
-HDR += src/info/info.h
+HDR += src/cmd/info/info.h

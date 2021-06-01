@@ -22,12 +22,10 @@
 #include <unistd.h>
 
 #include "DSJAS.h"
-#include "util.h"
 #include "ver.h"
-#include "conf.h"
-
-#include "info.h"
-#include "create.h"
+#include "util/util.h"
+#include "conf/conf.h"
+#include "cmd/sub.h"
 
 global_options gOpts;
 DSJAS gInstall;
