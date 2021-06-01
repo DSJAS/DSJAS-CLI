@@ -1,5 +1,5 @@
 # DSJAS-CLI
-# Dir: src/info
+# Dir: src/cmd/info
 # Purpose: Get information about DSJAS install
 
 SRC += src/cmd/info/info.c

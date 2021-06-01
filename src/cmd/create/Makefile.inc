@@ -1,5 +1,5 @@
 # DSJAS-CLI
-# Dir: src/create
+# Dir: src/cmd/create
 # Purpose: Create new DSJAS objects
 
 SRC += src/cmd/create/create.c
