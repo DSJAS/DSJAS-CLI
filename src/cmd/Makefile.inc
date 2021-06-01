@@ -2,6 +2,6 @@
 # Dir: src/cmd
 # Purpose: Subcommand source tree
 
-SRC +=
+SRC += src/cmd/common.c
 
-HDR += src/cmd/sub.h
+HDR += src/cmd/sub.h src/cmd/common.h

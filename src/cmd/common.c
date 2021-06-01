@@ -14,12 +14,12 @@
  * GNU General Public License for more details.
  */
 
-#ifndef __INFO_H__
-#define __INFO_H__
+#include <stdlib.h>
 
-typedef struct info_options {
-} InfoOptions;
+#include "util/util.h"
 
-void info_init();
-
-#endif // INFO_H
+void error_unknownCommand()
+{
+	err("Unknown subcommand");
+	exit(-1);
+}
