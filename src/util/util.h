@@ -29,16 +29,16 @@
 #define TERMCOLOR_RESET "\x1b[0m"
 
 /* IO */
-void wrn(char *msg);
-void err(char *msg);
-void msg(char *msg);
-void inf(char *msg);
-void win(char *msg);
+void wrn(const char *msg);
+void err(const char *msg);
+void msg(const char *msg);
+void inf(const char *msg);
+void win(const char *msg);
 
-void out_msg(char *msg);
-void out_log(char *msg);
-void out_put(char *msg);
-void out_msgc(char *msg, char *col);
+void out_msg(const char *msg);
+void out_log(const char *msg);
+void out_put(const char *msg);
+void out_msgc(const char *msg, const char *col);
 
 /* FILEIO */
 char *path_addFile(const char *path, const char *file);

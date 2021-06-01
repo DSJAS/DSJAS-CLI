@@ -25,41 +25,41 @@
 
 extern global_options gOpts;
 
-static void errms(char *msg, char del, char *col);
-static void outms(char *msg);
+static void errms(const char *msg, const char del, const char *col);
+static void outms(const char *msg);
 
-void wrn(char *msg)
+void wrn(const char *msg)
 {
 	errms(msg, '!', TERMCOLOR_YELLOW);
 }
 
-void err(char *msg)
+void err(const char *msg)
 {
 	errms(msg, 'X', TERMCOLOR_RED);
 }
 
-void msg(char *msg)
+void msg(const char *msg)
 {
 	errms(msg, '*', TERMCOLOR_BLUE);
 }
 
-void inf(char *msg)
+void inf(const char *msg)
 {
 	errms(msg, 'I', TERMCOLOR_CYAN);
 }
 
-void win(char *msg)
+void win(const char *msg)
 {
 	errms(msg, 'Y', TERMCOLOR_GREEN);
 }
 
-void out_msg(char *msg)
+void out_msg(const char *msg)
 {
 	if (!gOpts.quiet)
 		outms(msg);
 }
 
-void out_msgc(char *msg, char *col)
+void out_msgc(const char *msg, const char *col)
 {
 	if (!gOpts.quiet) {
 		char out[strlen(msg) + 2];
@@ -72,23 +72,23 @@ void out_msgc(char *msg, char *col)
 	}
 }
 
-void out_log(char *msg)
+void out_log(const char *msg)
 {
 	if (gOpts.verbose)
 		outms(msg);
 }
 
-void out_put(char *msg)
+void out_put(const char *msg)
 {
 	outms(msg);
 }
 
-static void outms(char *msg)
+static void outms(const char *msg)
 {
 	fprintf(stdout, "%s", msg);
 }
 
-static void errms(char *msg, char del, char *col)
+static void errms(const char *msg, const char del, const char *col)
 {
 	fprintf(stderr, "[%s%c%s] %s\n", col, del, TERMCOLOR_RESET, msg);
 }
