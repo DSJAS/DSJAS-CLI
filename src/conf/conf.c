@@ -67,6 +67,44 @@ static void init_global(DSJAS *state)
 	char *filename = path_addFile(gOpts.path, "Config.ini");
 	state->config.glb = iniparser_load(filename);
 
+	state->config.global.name = (char *)iniparser_getstring(
+		state->config.glb, "customization:bank_name", "");
+	state->config.global.domain = (char *)iniparser_getstring(
+		state->config.glb, "customization:bank_domain", "");
+
+	state->config.global.adminDisabled = iniparser_getboolean(
+		state->config.glb, "settings:disable_admin", false);
+	state->config.global.adminMissing = iniparser_getboolean(
+		state->config.glb, "settings:simulate_missing_nolog_admin", false);
+
+	state->config.global.usingDatabase = !iniparser_getboolean(
+		state->config.glb, "database:running_without_database", false);
+	state->config.global.hostname = (char *)iniparser_getstring(
+		state->config.glb, "database:server_hostname", "localhost");
+	state->config.global.dbName = (char *)iniparser_getstring(
+		state->config.glb, "database:database_name", "DSJAS");
+	state->config.global.un =
+		(char *)iniparser_getstring(state->config.glb, "database:username", "");
+	state->config.global.pw =
+		(char *)iniparser_getstring(state->config.glb, "database:password", "");
+
+	char *installKeys[] = {"setup:installed", "setup:owner_verified",
+						   "setup:database_installed",
+						   "setup:install_finalized"};
+	state->config.global.installed = true;
+
+	int i = 0;
+	while (installKeys[i] != NULL) {
+		if (!iniparser_getboolean(state->config.glb, installKeys[i], false)) {
+			state->config.global.installed = false;
+			break;
+		}
+
+		i++;
+	}
+
+	state->config.global.installState = i;
+
 	free(filename);
 }
 
@@ -75,6 +113,19 @@ static void init_theme(DSJAS *state)
 	char *filename = path_addFile(gOpts.path, "admin/site/UI/config.ini");
 	state->config.thm = iniparser_load(filename);
 
+	state->config.theme.udefault =
+		iniparser_getboolean(state->config.thm, "config:use_default", true);
+	if (state->config.theme.udefault) {
+		state->config.theme.cur = "default";
+	} else {
+		state->config.theme.cur = iniparser_getstring(
+			state->config.thm, "extensions:current_ui_extension", "default");
+	}
+
+	state->config.theme.lastValidation = iniparser_getlongint(
+		state->config.thm, "validation:last_validation_timestamp", 0);
+	state->config.theme.validated = (state->config.theme.lastValidation == 0);
+
 	free(filename);
 }
 
@@ -82,6 +133,31 @@ static void init_module(DSJAS *state)
 {
 	char *filename = path_addFile(gOpts.path, "admin/site/modules/config.ini");
 	state->config.mod = iniparser_load(filename);
+
+	state->config.module.numInstalled =
+		iniparser_getsecnkeys(state->config.mod, "active_modules");
+
+	state->config.module.installed =
+		malloc(sizeof(char *) * state->config.module.numInstalled);
+
+	state->config.module.enabled =
+		malloc(sizeof(char *) * state->config.module.numInstalled);
+
+	iniparser_getseckeys(state->config.mod, "active_modules",
+						 (const char **)state->config.module.installed);
+
+	state->config.module.numEnabled = 0;
+	for (int i = 0; i < state->config.module.numInstalled; i++) {
+		char *modName = strchr(state->config.module.installed[i], ':') + 1;
+		bool enabled = iniparser_getboolean(
+			state->config.mod, state->config.module.installed[i], false);
+
+		state->config.module.installed[i] = modName;
+		if (enabled) {
+			state->config.module.numEnabled++;
+			state->config.module.enabled[i] = modName;
+		}
+	}
 
 	free(filename);
 }
@@ -154,6 +230,9 @@ static void destroy_module(DSJAS *state)
 	char *tfn = path_addFile(gOpts.path, "admin/site/modules/config.ini");
 	FILE *tf = fopen(tfn, "r+");
 	ini_serialise(state->config.mod, tf);
+
+	free(state->config.module.installed);
+	free(state->config.module.enabled);
 
 	fclose(tf);
 	free(tfn);

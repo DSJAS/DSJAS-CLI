@@ -48,10 +48,10 @@ bool path_isInstall(char *path);
 
 /* DSJAS config/state */
 typedef enum InstallState {
-	greeting = 0,
-	verification = 1,
-	database = 2,
-	finalised = 3
+	greeting = 1,
+	verification = 2,
+	database = 3,
+	finalised = 4
 } InstallState;
 
 typedef struct dsjas_install {
@@ -80,15 +80,15 @@ typedef struct dsjas_install {
 
 		struct {
 			bool udefault;
-			char *cur;
+			const char *cur;
 
-			int lastValidation;
+			bool validated;
+			long lastValidation;
 		} theme;
 
 		struct {
 			char **installed;
 			char **enabled;
-			char **disabled;
 
 			int numInstalled;
 			int numEnabled;
