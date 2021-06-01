@@ -93,17 +93,16 @@ static void init_global(DSJAS *state)
 						   "setup:install_finalized"};
 	state->config.global.installed = true;
 
-	int i = 0;
-	while (installKeys[i] != NULL) {
+	for (int i = 0; i < 4; i++) {
 		if (!iniparser_getboolean(state->config.glb, installKeys[i], false)) {
 			state->config.global.installed = false;
 			break;
 		}
 
-		i++;
+		state->config.global.installState = i + 1;
 	}
 
-	state->config.global.installState = i;
+	printf("%i\n", state->config.global.installState);
 
 	free(filename);
 }
