@@ -36,6 +36,7 @@ void inf(char *msg);
 void win(char *msg);
 
 void out_msg(char *msg);
+void out_log(char *msg);
 void out_put(char *msg);
 
 /* FILEIO */
