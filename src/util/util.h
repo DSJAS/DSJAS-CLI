@@ -38,6 +38,7 @@ void win(char *msg);
 void out_msg(char *msg);
 void out_log(char *msg);
 void out_put(char *msg);
+void out_msgc(char *msg, char *col);
 
 /* FILEIO */
 char *path_addFile(const char *path, const char *file);

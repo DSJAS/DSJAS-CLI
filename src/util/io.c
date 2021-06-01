@@ -59,6 +59,19 @@ void out_msg(char *msg)
 		outms(msg);
 }
 
+void out_msgc(char *msg, char *col)
+{
+	if (!gOpts.quiet) {
+		char out[strlen(msg) + 2];
+
+		sprintf(out, "%s%s%s", col, msg, TERMCOLOR_RESET);
+
+		outms(out);
+	} else {
+		outms(msg);
+	}
+}
+
 void out_log(char *msg)
 {
 	if (gOpts.verbose)
