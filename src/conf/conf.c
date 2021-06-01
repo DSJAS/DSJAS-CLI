@@ -102,8 +102,6 @@ static void init_global(DSJAS *state)
 		state->config.global.installState = i + 1;
 	}
 
-	printf("%i\n", state->config.global.installState);
-
 	free(filename);
 }
 
