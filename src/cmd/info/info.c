@@ -87,7 +87,7 @@ static void info_config()
 {
 	const char *global = "/Config.ini";
 	const char *theme = "/admin/site/UI/config.ini";
-	const char *module = "/admin/site/module/config.ini";
+	const char *module = "/admin/site/modules/config.ini";
 	const char *extens = "/admin/site/extensions/config.ini";
 
 	char globalC[strlen(global) + strlen(gOpts.path) + 1];
