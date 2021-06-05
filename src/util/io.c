@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -28,59 +29,125 @@ extern global_options gOpts;
 static void errms(const char *msg, const char del, const char *col);
 static void outms(const char *msg);
 
-void wrn(const char *msg)
+void wrn(const char *msg, ...)
 {
-	errms(msg, '!', TERMCOLOR_YELLOW);
+	char *out;
+	va_list args;
+	va_start(args, msg);
+	vasprintf(&out, msg, args);
+	va_end(args);
+
+	errms(out, '!', TERMCOLOR_YELLOW);
+	free(out);
 }
 
-void err(const char *msg)
+void err(const char *msg, ...)
 {
-	errms(msg, 'X', TERMCOLOR_RED);
+	char *out;
+	va_list args;
+	va_start(args, msg);
+	vasprintf(&out, msg, args);
+	va_end(args);
+
+	errms(out, 'X', TERMCOLOR_RED);
+	free(out);
 }
 
-void msg(const char *msg)
+void msg(const char *msg, ...)
 {
-	errms(msg, '*', TERMCOLOR_BLUE);
+	char *out;
+	va_list args;
+	va_start(args, msg);
+	vasprintf(&out, msg, args);
+	va_end(args);
+
+	errms(out, '*', TERMCOLOR_BLUE);
+	free(out);
 }
 
-void inf(const char *msg)
+void inf(const char *msg, ...)
 {
-	errms(msg, 'I', TERMCOLOR_CYAN);
+	char *out;
+	va_list args;
+	va_start(args, msg);
+	vasprintf(&out, msg, args);
+	va_end(args);
+
+	errms(out, 'I', TERMCOLOR_CYAN);
+	free(out);
 }
 
-void win(const char *msg)
+void win(const char *msg, ...)
 {
-	errms(msg, 'Y', TERMCOLOR_GREEN);
+	char *out;
+	va_list args;
+	va_start(args, msg);
+	vasprintf(&out, msg, args);
+	va_end(args);
+
+	errms(out, 'Y', TERMCOLOR_GREEN);
+	free(out);
 }
 
-void out_msg(const char *msg)
+void out_msg(const char *msg, ...)
 {
+	char *out;
+	va_list args;
+	va_start(args, msg);
+	vasprintf(&out, msg, args);
+	va_end(args);
+
 	if (!gOpts.quiet)
-		outms(msg);
+		outms(out);
+
+	free(out);
 }
 
-void out_msgc(const char *msg, const char *col)
+void out_msgc(const char *msg, const char *col, ...)
 {
+	char *fout;
+	va_list args;
+	va_start(args, col);
+	vasprintf(&fout, msg, args);
+	va_end(args);
+
 	if (!gOpts.quiet) {
 		char out[strlen(msg) + 2];
 
-		sprintf(out, "%s%s%s", col, msg, TERMCOLOR_RESET);
+		sprintf(out, "%s%s%s", col, fout, TERMCOLOR_RESET);
 
 		outms(out);
 	} else {
-		outms(msg);
+		outms(fout);
 	}
+
+	free(fout);
 }
 
-void out_log(const char *msg)
+void out_log(const char *msg, ...)
 {
+	char *out;
+	va_list args;
+	va_start(args, msg);
+	vasprintf(&out, msg, args);
+	va_end(args);
+
 	if (gOpts.verbose)
-		outms(msg);
+		outms(out);
+
+	free(out);
 }
 
-void out_put(const char *msg)
+void out_put(const char *msg, ...)
 {
-	outms(msg);
+	char *out;
+	va_list args;
+	va_start(args, msg);
+	vasprintf(&out, msg, args);
+	va_end(args);
+
+	outms(out);
+	free(out);
 }
 
 static void outms(const char *msg)

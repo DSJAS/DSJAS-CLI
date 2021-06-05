@@ -30,16 +30,16 @@
 #define TERMCOLOR_RESET "\x1b[0m"
 
 /* IO */
-void wrn(const char *msg);
-void err(const char *msg);
-void msg(const char *msg);
-void inf(const char *msg);
-void win(const char *msg);
+void wrn(const char *msg, ...);
+void err(const char *msg, ...);
+void msg(const char *msg, ...);
+void inf(const char *msg, ...);
+void win(const char *msg, ...);
 
-void out_msg(const char *msg);
-void out_log(const char *msg);
-void out_put(const char *msg);
-void out_msgc(const char *msg, const char *col);
+void out_msg(const char *msg, ...);
+void out_log(const char *msg, ...);
+void out_put(const char *msg, ...);
+void out_msgc(const char *msg, const char *col, ...);
 
 /* ASPRINTF */
 int printflen(const char *fmt, va_list args);
