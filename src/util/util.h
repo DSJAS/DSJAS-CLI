@@ -15,6 +15,7 @@
  */
 
 #include <stdbool.h>
+#include <stdarg.h>
 
 #ifndef __UTIL_H__
 #define __UTIL_H__
@@ -39,6 +40,11 @@ void out_msg(const char *msg);
 void out_log(const char *msg);
 void out_put(const char *msg);
 void out_msgc(const char *msg, const char *col);
+
+/* ASPRINTF */
+int printflen(const char *fmt, va_list args);
+int asprintf(char **str, const char *fmt, ...);
+int vasprintf(char **str, const char *fmt, va_list args);
 
 /* FILEIO */
 char *path_addFile(const char *path, const char *file);
