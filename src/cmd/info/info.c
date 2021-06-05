@@ -29,14 +29,10 @@ static void info_general()
 	out_msg("-----------------\n");
 
 	out_msg("\t");
-	out_put("Bank name: \"");
-	out_put(gInstall.config.global.name);
-	out_put("\"\n");
+	out_put("Bank name: \"%s\"\n", gInstall.config.global.name);
 
 	out_msg("\t");
-	out_put("Bank URL: \"");
-	out_put(gInstall.config.global.domain);
-	out_put("\"\n");
+	out_put("Bank URL: \"%s\"\n", gInstall.config.global.domain);
 
 	out_msg("\t");
 	out_put("Admin panel disabled: ");
@@ -69,9 +65,7 @@ static void info_theme()
 	}
 
 	out_msg("\t");
-	out_put("Enabled theme: ");
-	out_put(gInstall.config.theme.cur);
-	out_put("\n");
+	out_put("Enabled theme: \"%s\"\n", gInstall.config.theme.cur);
 }
 
 static void info_summary()
@@ -103,25 +97,17 @@ static void info_config()
 	out_msg("Configuration information\n");
 	out_msg("=========================\n");
 
-	out_msg("\t");
-	out_put("Global config path: ");
-	out_put(globalC);
-	out_put("\n");
+	out_msg("\tGlobal config path: ");
+	out_put("%s\n", globalC);
 
-	out_msg("\t");
-	out_put("Theme config path: ");
-	out_put(themeC);
-	out_put("\n");
+	out_msg("\tTheme config path: ");
+	out_put("%s\n", themeC);
 
-	out_msg("\t");
-	out_put("Module config path: ");
-	out_put(moduleC);
-	out_put("\n");
+	out_msg("\tModule config path: ");
+	out_put("%s\n", moduleC);
 
-	out_msg("\t");
-	out_put("Extension config path: ");
-	out_put(extensC);
-	out_put("\n");
+	out_msg("\tExtension config path: ");
+	out_put("%s\n", extensC);
 }
 
 void info_init()
