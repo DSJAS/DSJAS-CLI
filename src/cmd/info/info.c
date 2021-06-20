@@ -84,30 +84,20 @@ static void info_config()
 	const char *module = "/admin/site/modules/config.ini";
 	const char *extens = "/admin/site/extensions/config.ini";
 
-	char globalC[strlen(global) + strlen(gOpts.path) + 1];
-	char themeC[strlen(theme) + strlen(gOpts.path) + 1];
-	char moduleC[strlen(module) + strlen(gOpts.path) + 1];
-	char extensC[strlen(extens) + strlen(gOpts.path) + 1];
-
-	sprintf(globalC, "%s%s", gOpts.path, global);
-	sprintf(themeC, "%s%s", gOpts.path, theme);
-	sprintf(moduleC, "%s%s", gOpts.path, module);
-	sprintf(extensC, "%s%s", gOpts.path, extens);
-
 	out_msg("Configuration information\n");
 	out_msg("=========================\n");
 
 	out_msg("\tGlobal config path: ");
-	out_put("%s\n", globalC);
+	out_put("%s%s\n", gOpts.path, global);
 
 	out_msg("\tTheme config path: ");
-	out_put("%s\n", themeC);
+	out_put("%s%s\n", gOpts.path, theme);
 
 	out_msg("\tModule config path: ");
-	out_put("%s\n", moduleC);
+	out_put("%s%s\n", gOpts.path, module);
 
 	out_msg("\tExtension config path: ");
-	out_put("%s\n", extensC);
+	out_put("%s%s\n", gOpts.path, extens);
 }
 
 void info_init()
