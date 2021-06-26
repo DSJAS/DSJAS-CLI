@@ -68,13 +68,68 @@ static void info_theme()
 	out_put("Enabled theme: \"%s\"\n", gInstall.config.theme.cur);
 }
 
+static void info_module()
+{
+	out_msg("Module settings:\n");
+	out_msg("----------------\n");
+
+	out_msg("\t");
+	out_put("Enabled modules: ");
+
+	out_msg("\n");
+
+	for (int i = 0; i < gInstall.config.module.numEnabled; i++) {
+		out_msg("\t\t");
+		if (gOpts.quiet) {
+			out_put("%s", gInstall.config.module.enabled[i]);
+			if (i != gInstall.config.module.numEnabled - 1) {
+				out_put(", ");
+			} else {
+				out_put("\n");
+			}
+		} else {
+			out_put("%s\n", gInstall.config.module.enabled[i]);
+		}
+	}
+
+	out_msg("\t");
+	out_put("All modules: ");
+	out_msg("\n");
+
+	for (int i = 0; i < gInstall.config.module.numInstalled; i++) {
+		out_msg("\t\t");
+		if (gOpts.quiet) {
+			out_put("%s", gInstall.config.module.installed[i]);
+			if (i != gInstall.config.module.numInstalled - 1) {
+				out_put(", ");
+			} else {
+				out_put("\n");
+			}
+		} else {
+			out_put("%s\n", gInstall.config.module.installed[i]);
+		}
+	}
+}
+
+static void info_extension()
+{
+	out_msg("Extension settings:\n");
+	out_msg("-------------------\n");
+
+	if (!gOpts.quiet) {
+		out_msgc("\tComing soon\n", TERMCOLOR_YELLOW);
+	}
+}
+
 static void info_summary()
 {
 	out_msg("DSJAS Configuration summary\n");
 	out_msg("===========================\n\n");
 
-	info_theme();
 	info_general();
+	info_theme();
+	info_module();
+	info_extension();
 }
 
 static void info_config()
