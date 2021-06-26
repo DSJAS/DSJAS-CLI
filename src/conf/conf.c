@@ -151,8 +151,8 @@ static void init_module(DSJAS *state)
 
 		state->config.module.installed[i] = modName;
 		if (enabled) {
-			state->config.module.numEnabled++;
-			state->config.module.enabled[i] = modName;
+			state->config.module.enabled[state->config.module.numEnabled++] =
+				modName;
 		}
 	}
 
