@@ -4,6 +4,8 @@
 [submodule "vendor/json/parser"]
 	path = vendor/json/parser
 	url = https://github.com/udp/json-parser/
+	ignore = dirty
 [submodule "vendor/json/builder"]
 	path = vendor/json/builder
 	url = https://github.com/udp/json-builder
+	ignore = dirty
