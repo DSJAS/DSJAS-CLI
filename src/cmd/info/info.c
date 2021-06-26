@@ -162,6 +162,14 @@ void info_init()
 		info_summary();
 	} else if (strcmp(cmd, "config") == 0) {
 		info_config();
+	} else if (strcmp(cmd, "site") == 0) {
+		info_general();
+	} else if (strcmp(cmd, "theme") == 0) {
+		info_theme();
+	} else if (strcmp(cmd, "module") == 0) {
+		info_module();
+	} else if (strcmp(cmd, "extension") == 0) {
+		info_extension();
 	} else {
 		err("Unknown subcommand");
 		exit(-1);
