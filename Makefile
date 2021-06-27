@@ -7,7 +7,7 @@ export SRC
 export HDR
 
 CMDS = info create
-DIRS = src src/util src/conf src/cmd $(addprefix src/cmd/, ${CMDS})
+DIRS = src src/util src/conf src/ext src/cmd $(addprefix src/cmd/, ${CMDS})
 
 include $(addsuffix /Makefile.inc, ${DIRS})
 
