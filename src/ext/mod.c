@@ -14,20 +14,16 @@
  * GNU General Public License for more details.
  */
 
-#include <stdio.h>
+#include "ext.h"
 
-#include "create.h"
-#include "sub.h"
-#include "cmd/common.h"
-
-void create_init()
+void init_theme(Theme *theme, const char *path)
 {
-	char *cmd = gOpts.cmd;
-	if (strcmp(cmd, "theme") == 0) {
-	} else if (strcmp(cmd, "module") == 0) {
-	} else {
-		error_unknownCommand();
-	}
+}
 
-	return;
+void free_theme(Theme *theme)
+{
+}
+
+void create_theme(const char *name)
+{
 }

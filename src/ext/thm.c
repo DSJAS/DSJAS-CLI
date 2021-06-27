@@ -14,43 +14,18 @@
  * GNU General Public License for more details.
  */
 
-#include <stdbool.h>
+#include "ext.h"
 
-#ifndef __EXT_H__
-#define __EXT_H__
+void init_module(Module *module, const char *path)
+{
+}
 
-/* Theme */
-typedef struct {
-	const char *path;
-	const char *name;
-} Theme;
+void free_module(Module *module)
+{
+}
 
-void init_theme(Theme *theme, const char *path);
-void free_theme(Theme *theme);
-void create_theme(const char *name);
-
-/* Module */
-typedef struct {
-	const char *path;
-	const char *name;
-	const char *description;
-	const char *info_link;
-
-	int v_maj;
-	int v_min;
-	int v_pat;
-
-	char **routes;
-	char **route_events;
-	bool *route_props[3];
-
-	const char **filter;
-} Module;
-
-void init_module(Module *module, const char *path);
-void free_module(Module *module);
 void create_module(const char *name, const char *description,
 				   const char *info_link, const int *ver, const char **hooks,
-				   const char **events, const bool **props);
-
-#endif
+				   const char **events, const bool **props)
+{
+}
