@@ -17,9 +17,6 @@
 #ifndef __INFO_H__
 #define __INFO_H__
 
-typedef struct info_options {
-} InfoOptions;
-
 void info_init();
 
 #endif // INFO_H
