@@ -1,0 +1,7 @@
+{
+    "git.ignoredRepositories": [
+        "vendor/iniparser",
+        "vendor/json/builder",
+        "vendor/json/parser"
+    ]
+}
