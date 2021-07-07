@@ -28,7 +28,7 @@ INSDIR = /usr/local/bin
 CFLAGS ?= -Wall -Wpedantic
 
 ifeq (${DEBUG}, 1)
-	CFLAGS += -g
+	CFLAGS += -g -O0
 else
 	CFLAGS += -O2
 endif
