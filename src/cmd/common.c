@@ -16,10 +16,15 @@
 
 #include <stdlib.h>
 
+#include "conf/conf.h"
 #include "util/util.h"
+
+extern DSJAS gInstall;
 
 void error_unknownCommand()
 {
+	destroy_configs(&gInstall);
+
 	err("Unknown subcommand");
 	exit(-1);
 }

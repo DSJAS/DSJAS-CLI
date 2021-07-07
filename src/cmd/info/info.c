@@ -19,6 +19,7 @@
 #include <stdbool.h>
 
 #include "util/util.h"
+#include "cmd/common.h"
 
 #include "info.h"
 #include "sub.h"
@@ -171,8 +172,7 @@ void info_init()
 	} else if (strcmp(cmd, "extension") == 0) {
 		info_extension();
 	} else {
-		err("Unknown subcommand");
-		exit(-1);
+		error_unknownCommand();
 	}
 
 	return;
