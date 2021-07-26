@@ -1,0 +1,74 @@
+.TH DSJAS 1 DSJAS-CLI
+.SH NAME
+dsjas \- manage a DSJAS site
+.SH SYNOPSIS
+.SY dsjas
+.OP \-Vq
+.OP \-p path
+.I section
+.I command
+.SY dsjas
+.OP \-huv
+.YS
+.SH DESCRIPTION
+.P
+DSJAS-CLI allows for the command-line management and interaction with
+a DSJAS install. Among common administration tasks, it allows for the
+automation of common developer tasks, such as creating plugins and
+discovering common errors.
+.P
+DSJAS-CLI requires a valid DSJAS install to function. If the
+.B \-p
+option is not provided, DSJAS-CLI will assume the targetted install is
+the current working directory.
+.P
+Functionality is split into various sections and commands, which all serve
+common purposes. For instance, the "info" command is responsible for
+querying site information, and the "create" command is responsible for
+creating plugins.
+.P
+Flags can be provided globally (before the section and command) or to
+command itself. Flags provided globally come before the command/section.
+Flags for said command/section come afterward.
+.SH GLOBAL OPTIONS
+.TP
+.B \-V
+Be verbose; enable logging/extra outputs
+.TP
+.B \-q
+Be quiet; disable any unnessecary outputs/formatting
+.TP
+.B \-p
+Explicitly set the path for the DSJAS install. Defaults to the current
+working directory
+.TP
+.B \-u
+Print usage and exit cleanly
+.TP
+.B \-h
+Print brief help and exit cleanly
+.TP
+.B \-v
+Print version information and exit cleanly
+.SH COMMAND SECTIONS
+DSJAS-CLI sumcommands are documented in their own manual pages, in the format:
+.I dsjas-[subcommand].
+For instance, to see the documentation for the "create" section, the
+manual page
+.BR dsjas-create (1)
+will be required.
+.BR 
+.SH AUTHOR
+Written by Ethan Marshall as part of the DSJAS project. For more information,
+visit
+.UR https://github.com/DSJAS
+.UE
+.SH SEE ALSO
+.UR https://github.com/DSJAS/DSJAS
+.UE
+
+.BR dsjas-info (1)
+.BR dsjas-create (1)
+
+.BR httpd (8)
+.BR apache2 (8)

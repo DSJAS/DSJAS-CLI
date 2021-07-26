@@ -1,0 +1,46 @@
+.TH DSJAS-INFO 1 DSJAS-CLI
+.SH NAME
+dsjas-info \- query information about a DSJAS install
+.SH SYNOPSIS
+.SY "dsjas info"
+.I command
+.SH DESCRIPTION
+The
+.B info
+subcommand to DSJAS-CLI allows for both human and machine-readable
+retrieval of information about a DSJAS site, its configuration and
+current installation state.
+
+For instance, DSJAS-CLI can list the installed plugins and can provide a
+summary of current bank details (name, spoofed URL, etc.).
+
+Output from this command is affected by the
+.I verbose
+and
+.I quiet
+global options, the former printing debug output about the install, the
+latter silencing output formatting and visual information for
+administrators. This makes the output usable for parsing in scripts.
+.SH SECTION OPTIONS
+None
+.SH SECTION COMMANDS
+.TP
+.B summary
+Provides a summary of all other config commands, which are useful at a
+glance.
+.TP
+.B config
+Print the paths of various parsed config files in the install. Useful
+for scripts.
+.TP
+.B site
+Print general information about the site's configuration
+.TP
+.B theme
+Print information about the configured theme
+.TP
+.B module
+Print installed and enabled modules
+.TP
+.B extension
+.I Coming soon
