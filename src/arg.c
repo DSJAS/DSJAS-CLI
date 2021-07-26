@@ -63,6 +63,8 @@ void arg_parse(global_options *opts, int argc, char **argv)
 			strncpy(opts->path, optarg, 255);
 			pathOverride = true;
 			break;
+		case '?':
+			exit(-1);
 		default:
 			goto end;
 		}
