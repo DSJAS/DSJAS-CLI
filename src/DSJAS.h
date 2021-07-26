@@ -16,6 +16,7 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+#include <limits.h>
 
 #include "iniparser.h"
 #include "json.h"
@@ -35,7 +36,7 @@ typedef struct global_options {
 	bool verbose;
 	bool quiet;
 
-	char path[256];
+	char path[PATH_MAX];
 
 	char *section;
 	char *cmd;

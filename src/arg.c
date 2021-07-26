@@ -78,7 +78,7 @@ end:
 	}
 
 	if (!pathOverride) {
-		getcwd(opts->path, 256);
+		getcwd(opts->path, PATH_MAX);
 	}
 
 	opts->gflags_end = optind;
