@@ -25,6 +25,7 @@ EXE = dsjas
 
 INSDIR = /usr/local/bin
 
+CC ?= c99
 CFLAGS ?= -Wall -Wpedantic
 
 ifeq (${DEBUG}, 1)
