@@ -44,7 +44,7 @@ ${LIB_INI}:
 	${MAKE} -C ${LIB_INIPATH}
 
 ${LIB_JSONP}: ${LIB_JSONPPATH}/Makefile
-	${MAKE} -C ${LIB_JSONPPATH}
+	${MAKE} -C ${LIB_JSONPPATH} CFLAGS=-O2
 
 ${LIB_JSONB}: ${LIB_JSONBPATH}/json-builder.c ${LIB_JSONBPATH}/json-builder.h
 	${CC} ${CFLAGS} -c -o ${LIB_JSONBPATH}/json-builder.o -I${LIB_JSONPPATH} ${LIB_JSONBPATH}/json-builder.c
