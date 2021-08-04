@@ -18,11 +18,20 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "conf/conf.h"
 #include "util/util.h"
 #include "cmd/common.h"
 
 #include "info.h"
 #include "sub.h"
+
+static const char *opts = "ht:m:";
+
+static bool filterTheme = false;
+static bool filterModule = false;
+
+static char *themeFilter;
+static char *moduleFilter;
 
 static void info_general()
 {
@@ -52,8 +61,17 @@ static void info_general()
 	}
 }
 
+static void info_filter_theme()
+{
+}
+
 static void info_theme()
 {
+	if (filterTheme) {
+		info_filter_theme();
+		return;
+	}
+
 	out_msg("Theme settings:\n");
 	out_msg("---------------\n");
 
@@ -69,8 +87,17 @@ static void info_theme()
 	out_put("Enabled theme: \"%s\"\n", gInstall.config.theme.cur);
 }
 
+static void info_filter_module()
+{
+}
+
 static void info_module()
 {
+	if (filterModule) {
+		info_filter_module();
+		return;
+	}
+
 	out_msg("Module settings:\n");
 	out_msg("----------------\n");
 
@@ -156,8 +183,38 @@ static void info_config()
 	out_put("%s%s\n", gOpts.path, extens);
 }
 
+void info_help()
+{
+	execlp("/usr/bin/man", "/usr/bin/man", "dsjas-info", NULL);
+}
+
 void info_init()
 {
+	int opt;
+	optind = 1;
+	while ((opt = getopt(gOpts.numSubOpts, gOpts.subOpts, opts)) != -1) {
+		switch (opt) {
+		case 'h':
+			info_help();
+
+			destroy_configs(&gInstall);
+			exit(-1);
+		case 't':
+			msg("Filtering for theme \"%s\"", optarg);
+			filterTheme = true;
+			themeFilter = optarg;
+			break;
+		case 'm':
+			msg("Filtering for module \"%s\"", optarg);
+			filterModule = true;
+			moduleFilter = optarg;
+			break;
+		default:
+			destroy_configs(&gInstall);
+			exit(-1);
+		}
+	}
+
 	char *cmd = gOpts.cmd;
 	if (strcmp(cmd, "summary") == 0) {
 		info_summary();
