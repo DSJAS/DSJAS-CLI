@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <limits.h>
 
 #include "DSJAS.h"
 #include "util/util.h"
@@ -60,7 +61,7 @@ void arg_parse(global_options *opts, int argc, char **argv)
 			opts->quiet = true;
 			break;
 		case 'p':
-			strncpy(opts->path, optarg, 255);
+			strncpy(opts->path, optarg, PATH_MAX - 1);
 			pathOverride = true;
 			break;
 		case '?':
