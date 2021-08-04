@@ -91,8 +91,8 @@ end:
 
 	opts->section = argv[optind];
 	opts->cmd = argv[optind + 1];
-	opts->numSubOpts = argc - optind - 2;
-	opts->subOpts = &argv[optind + 2];
+	opts->numSubOpts = argc - optind - 1;
+	opts->subOpts = &argv[optind + 1];
 }
 
 bool path_isInstall(char *path)
