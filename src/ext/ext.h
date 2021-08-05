@@ -14,6 +14,7 @@
  * GNU General Public License for more details.
  */
 
+#include <dirent.h>
 #include <stdbool.h>
 
 #ifndef __EXT_H__
@@ -21,11 +22,13 @@
 
 /* Theme */
 typedef struct {
-	const char *path;
-	const char *name;
+	char *path;
+	char *name;
+
+	bool enabled;
 } Theme;
 
-void init_theme(Theme *theme, const char *path);
+bool init_theme(Theme *theme, char *name);
 void free_theme(Theme *theme);
 void create_theme(const char *name);
 

@@ -21,6 +21,7 @@
 #include "conf/conf.h"
 #include "util/util.h"
 #include "cmd/common.h"
+#include "ext/ext.h"
 
 #include "sub.h"
 
@@ -62,6 +63,33 @@ static void info_general()
 
 static void info_filter_theme()
 {
+	Theme thm;
+	if (!init_theme(&thm, themeFilter)) {
+		err("Unknown theme \"%s\"", themeFilter);
+
+		free_theme(&thm);
+		exit(-1);
+	}
+
+	out_msg("Theme information\n");
+	out_msg("=================\n");
+
+	out_msg("\t");
+	out_put("Theme name: %s\n", thm.name);
+
+	out_msg("\t");
+	out_put("Theme path: %s\n", thm.path);
+
+	out_msg("\t");
+	out_put("Theme enabled: ");
+	if (thm.enabled) {
+		out_msgc("true", TERMCOLOR_GREEN);
+	} else {
+		out_msgc("false", TERMCOLOR_RED);
+	}
+	putchar('\n');
+
+	free_theme(&thm);
 }
 
 static void info_theme()

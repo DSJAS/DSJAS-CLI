@@ -14,14 +14,43 @@
  * GNU General Public License for more details.
  */
 
+#include <libgen.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <stdio.h>
+#include <stdbool.h>
+
+#include "DSJAS.h"
+#include "util/util.h"
 #include "ext.h"
 
-void init_theme(Theme *theme, const char *path)
+extern DSJAS gInstall;
+extern global_options gOpts;
+
+static const char *themePath = "admin/site/UI/";
+
+bool init_theme(Theme *theme, char *name)
 {
+	theme->name = name;
+
+	char *fullPath = path_addFile(gOpts.path, themePath);
+	theme->path = path_addFile(fullPath, name);
+
+	if (!dir_exists(theme->path)) {
+		return false;
+	}
+
+	if (strcmp(gInstall.config.theme.cur, name) == 0) {
+		theme->enabled = true;
+	}
+
+	free(fullPath);
+	return true;
 }
 
 void free_theme(Theme *theme)
 {
+	free(theme->path);
 }
 
 void create_theme(const char *name)
