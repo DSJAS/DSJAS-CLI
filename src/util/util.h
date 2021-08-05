@@ -52,4 +52,7 @@ char *path_addFile(const char *path, const char *file);
 long file_getSize(const char *path);
 char *file_getContents(const char *path);
 
+bool file_exists(const char *path);
+bool dir_exists(const char *path);
+
 #endif // UTIL_H

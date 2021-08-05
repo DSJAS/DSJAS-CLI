@@ -17,6 +17,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <stdbool.h>
 
 #include "util.h"
 
@@ -65,4 +68,20 @@ char *file_getContents(const char *path)
 
 	fclose(f);
 	return cont;
+}
+
+bool file_exists(const char *path)
+{
+	return !access(path, F_OK);
+}
+
+bool dir_exists(const char *path)
+{
+	DIR *dir = opendir(path);
+	if (!dir) {
+		return false;
+	}
+
+	closedir(dir);
+	return true;
 }
