@@ -64,6 +64,12 @@ void version()
 	exit(-1);
 }
 
+static void cleanup()
+{
+	/* Write and free configs */
+	destroy_configs(&gInstall);
+}
+
 int main(int argc, char **argv)
 {
 	/* Parse argument array */
@@ -77,6 +83,7 @@ int main(int argc, char **argv)
 
 	/* Init configs */
 	init_configs(&gInstall);
+	atexit(cleanup);
 
 	/* Pass control to subcommand */
 	if (strcmp(gOpts.section, "create") == 0) {
@@ -85,12 +92,8 @@ int main(int argc, char **argv)
 		info_init();
 	} else {
 		err("Invalid subcommand");
-		destroy_configs(&gInstall);
 		help();
 	}
-
-	/* Write and free configs */
-	destroy_configs(&gInstall);
 
 	return 0;
 }

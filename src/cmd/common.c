@@ -23,8 +23,6 @@ extern DSJAS gInstall;
 
 void error_unknownCommand()
 {
-	destroy_configs(&gInstall);
-
 	err("Unknown subcommand");
 	exit(-1);
 }

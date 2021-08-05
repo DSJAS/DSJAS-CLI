@@ -196,8 +196,6 @@ void info_init()
 		switch (opt) {
 		case 'h':
 			info_help();
-
-			destroy_configs(&gInstall);
 			exit(-1);
 		case 't':
 			msg("Filtering for theme \"%s\"", optarg);
@@ -210,7 +208,6 @@ void info_init()
 			moduleFilter = optarg;
 			break;
 		default:
-			destroy_configs(&gInstall);
 			exit(-1);
 		}
 	}
