@@ -40,9 +40,7 @@ bool init_theme(Theme *theme, char *name)
 		return false;
 	}
 
-	if (strcmp(gInstall.config.theme.cur, name) == 0) {
-		theme->enabled = true;
-	}
+	theme->enabled = (strcmp(gInstall.config.theme.cur, name) == 0);
 
 	free(fullPath);
 	return true;
