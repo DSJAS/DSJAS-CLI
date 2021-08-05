@@ -97,11 +97,9 @@ end:
 
 bool path_isInstall(char *path)
 {
-	DIR *pDir = opendir(path);
-	if (!pDir)
+	if (!dir_exists(path)) {
 		return false;
-
-	closedir(pDir);
+	}
 
 	int i = 0;
 	while (installFiles[i] != NULL) {
