@@ -16,16 +16,14 @@
 
 #include "ext.h"
 
-void init_module(Module *module, const char *path)
+void init_theme(Theme *theme, const char *path)
 {
 }
 
-void free_module(Module *module)
+void free_theme(Theme *theme)
 {
 }
 
-void create_module(const char *name, const char *description,
-				   const char *info_link, const int *ver, const char **hooks,
-				   const char **events, const bool **props)
+void create_theme(const char *name)
 {
 }
