@@ -24,8 +24,9 @@ EXE = dsjas
 
 INSDIR = /usr/local/bin
 
-CC ?= c99
+CC = c99
 CFLAGS ?= -Wall -Wpedantic
+CFLAGS += -D_POSIX_C_SOURCE=1
 
 ifeq (${DEBUG}, 1)
 	CFLAGS += -g -O0
