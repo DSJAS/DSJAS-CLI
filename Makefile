@@ -68,7 +68,7 @@ clean:
 
 libclean: clean
 	rm -f ${LIB_INIPATH}/src/*.o ${LIB_INI}
-	rm -f ${LIB_JSONPPATH}/*.o ${LIB_JSONP}
+	rm -f ${LIB_JSONPPATH}/*.o ${LIB_JSONPPATH}/Makefile ${LIB_JSONP}
 	rm -f ${LIB_JSONBPATH}/*.o ${LIB_JSONB}
 
 .PHONY: clean libclean install uninstall
