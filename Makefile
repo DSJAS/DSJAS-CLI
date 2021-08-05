@@ -64,15 +64,11 @@ uninstall:
 	rm -f ${INSDIR}/${EXE}
 
 clean:
-	rm ${OBJ}
-	rm ${EXE}
+	rm -f ${OBJ} ${EXE}
 
 libclean: clean
-	rm ${LIB_INIPATH}/src/*.o
-	rm ${LIB_INI}
-	rm ${LIB_JSONPPATH}/*.o
-	rm ${LIB_JSONP}
-	rm ${LIB_JSONB}
-	rm ${LIB_JSONBPATH}/*.o
+	rm -f ${LIB_INIPATH}/src/*.o ${LIB_INI}
+	rm -f ${LIB_JSONPPATH}/*.o ${LIB_JSONP}
+	rm -f ${LIB_JSONBPATH}/*.o ${LIB_JSONB}
 
 .PHONY: clean libclean install uninstall
