@@ -14,13 +14,18 @@
  * GNU General Public License for more details.
  */
 
-#include <DSJAS.h>
+#include <stdio.h>
 
-#ifndef __SUB_H__
-#define __SUB_H__
+#include "cmd/common.h"
 
-/* Common forward declarations for subcommands */
-extern global_options gOpts;
-extern DSJAS gInstall;
+void create_init()
+{
+	char *cmd = gOpts.cmd;
+	if (strcmp(cmd, "theme") == 0) {
+	} else if (strcmp(cmd, "module") == 0) {
+	} else {
+		error_unknownCommand();
+	}
 
-#endif // SUB_H
+	return;
+}

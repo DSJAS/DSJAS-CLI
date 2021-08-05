@@ -14,5 +14,5 @@
  * GNU General Public License for more details.
  */
 
-#include "info/info.h"
-#include "create/create.h"
+void info_init();
+void create_init();

@@ -22,7 +22,6 @@
 #include "util/util.h"
 #include "cmd/common.h"
 
-#include "info.h"
 #include "sub.h"
 
 static const char *opts = "ht:m:";

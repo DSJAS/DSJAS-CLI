@@ -4,4 +4,4 @@
 
 SRC += src/main.c src/arg.c
 
-HDR += src/DSJAS.h src/sub.h
+HDR += src/DSJAS.h
