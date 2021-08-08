@@ -117,6 +117,15 @@ static void info_theme()
 
 static void info_filter_module()
 {
+	Module mod;
+	if (!init_module(&mod, moduleFilter)) {
+		err("Unknown module \"%s\"", moduleFilter);
+
+		free_module(&mod);
+		exit(-1);
+	}
+
+	free_module(&mod);
 }
 
 static void info_module()

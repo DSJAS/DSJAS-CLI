@@ -17,6 +17,8 @@
 #include <dirent.h>
 #include <stdbool.h>
 
+#include "json.h"
+
 #ifndef __EXT_H__
 #define __EXT_H__
 
@@ -34,10 +36,12 @@ void create_theme(const char *name);
 
 /* Module */
 typedef struct {
-	const char *path;
-	const char *name;
-	const char *description;
-	const char *info_link;
+	json_value *root;
+
+	char *path;
+	char *name;
+	char *description;
+	char *info_link;
 
 	int v_maj;
 	int v_min;
@@ -50,7 +54,7 @@ typedef struct {
 	const char **filter;
 } Module;
 
-void init_module(Module *module, const char *path);
+bool init_module(Module *module, char *name);
 void free_module(Module *module);
 void create_module(const char *name, const char *description,
 				   const char *info_link, const int *ver, const char **hooks,
