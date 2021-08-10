@@ -64,6 +64,7 @@ bool init_module(Module *module, char *name)
 	json_value *vers_k = json_findKey("version", *module->root);
 	json_value *info_k = json_findKey("information-link", *module->root);
 	json_value *hook_k = json_findKey("hooks", *module->root);
+	json_value *filt_k = json_findKey("fileFilter", *module->root);
 
 	module->name = json_getString(*name_k);
 	module->description = json_getString(*desc_k);
@@ -81,7 +82,30 @@ bool init_module(Module *module, char *name)
 		return false;
 	}
 
-	/* TODO: Implement hooks, routes and filter parsing */
+	module->hooks = malloc(sizeof(ModuleHook) * hook_k->u.object.length);
+	for (int i = 0; i < hook_k->u.object.length; i++) {
+		json_value *hook   = hook_k->u.object.values[i].value;
+		json_value *even_k = json_findKey("triggerEvent", *hook);
+
+		json_value *css_k  = json_findKey("loadCSS", *hook);
+		json_value *js_k   = json_findKey("loadJS", *hook);
+		json_value *html_k = json_findKey("loadHTML", *hook);
+
+		module->hooks[i].name = hook_k->u.object.values[i].name;
+		module->hooks[i].event = json_getString(*even_k);
+
+		if (css_k && json_getBool(*css_k)) {
+			module->hooks[i].flags |= MODHOOK_CSS;
+		}
+
+		if (js_k && json_getBool(*js_k)) {
+			module->hooks[i].flags |= MODHOOK_JS;
+		}
+
+		if (html_k && json_getBool(*html_k)) {
+			module->hooks[i].flags |= MODHOOK_HTML;
+		}
+	}
 
 	free(fullPath);
 	free(config);
@@ -94,6 +118,7 @@ bool init_module(Module *module, char *name)
 void free_module(Module *module)
 {
 	free(module->path);
+	free(module->hooks);
 	json_value_free(module->root);
 }
 

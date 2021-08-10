@@ -35,6 +35,16 @@ void free_theme(Theme *theme);
 void create_theme(const char *name);
 
 /* Module */
+#define MODHOOK_CSS  0x1
+#define MODHOOK_JS   0x2
+#define MODHOOK_HTML 0x4
+
+typedef struct {
+	char *name;
+	char *event;
+	char flags;
+} ModuleHook;
+
 typedef struct {
 	json_value *root;
 
@@ -47,11 +57,9 @@ typedef struct {
 	int v_min;
 	int v_pat;
 
-	char **routes;
-	char **route_events;
-	bool *route_props[3];
+	ModuleHook *hooks;
 
-	const char **filter;
+	char **filter;
 } Module;
 
 bool init_module(Module *module, char *name);
