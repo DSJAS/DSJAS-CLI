@@ -74,7 +74,8 @@ bool init_module(Module *module, char *name)
 	else
 		module->info_link = "";
 
-	if (sscanf(json_getString(*vers_k), "%d.%d.%d", &module->v_maj, &module->v_min, &module->v_pat) != 3) {
+	if (sscanf(json_getString(*vers_k), "%d.%d.%d", &module->v_maj,
+			   &module->v_min, &module->v_pat) != 3) {
 		err("Invalid module: invalid module version specifier");
 
 		free(config);
@@ -84,11 +85,11 @@ bool init_module(Module *module, char *name)
 
 	module->hooks = malloc(sizeof(ModuleHook) * hook_k->u.object.length);
 	for (int i = 0; i < hook_k->u.object.length; i++) {
-		json_value *hook   = hook_k->u.object.values[i].value;
+		json_value *hook = hook_k->u.object.values[i].value;
 		json_value *even_k = json_findKey("triggerEvent", *hook);
 
-		json_value *css_k  = json_findKey("loadCSS", *hook);
-		json_value *js_k   = json_findKey("loadJS", *hook);
+		json_value *css_k = json_findKey("loadCSS", *hook);
+		json_value *js_k = json_findKey("loadJS", *hook);
 		json_value *html_k = json_findKey("loadHTML", *hook);
 
 		module->hooks[i].name = hook_k->u.object.values[i].name;
@@ -107,9 +108,13 @@ bool init_module(Module *module, char *name)
 		}
 	}
 
-	module->filter = malloc(sizeof(char*) * filt_k->u.array.length);
-	for (int i = 0; i < filt_k->u.array.length; i++) {
-		module->filter[i] = json_getString(*filt_k->u.array.values[i]);
+	if (filt_k) {
+		module->filter = malloc(sizeof(char **) * filt_k->u.array.length);
+		for (int i = 0; i < filt_k->u.array.length; i++) {
+			module->filter[i] = json_getString(*filt_k->u.array.values[i]);
+		}
+	} else {
+		module->filter = NULL;
 	}
 
 	free(fullPath);
@@ -124,7 +129,10 @@ void free_module(Module *module)
 {
 	free(module->path);
 	free(module->hooks);
-	free(module->filter);
+
+	if (module->filter)
+		free(module->filter);
+
 	json_value_free(module->root);
 }
 
