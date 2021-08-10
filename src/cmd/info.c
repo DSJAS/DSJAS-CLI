@@ -119,7 +119,7 @@ static void info_filter_module()
 {
 	Module mod;
 	if (!init_module(&mod, moduleFilter)) {
-		err("Unknown module \"%s\"", moduleFilter);
+		err("Error parsing module");
 
 		free_module(&mod);
 		exit(-1);

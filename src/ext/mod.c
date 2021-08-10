@@ -37,6 +37,8 @@ bool init_module(Module *module, char *name)
 	module->path = path_addFile(fullPath, name);
 
 	if (!dir_exists(module->path)) {
+		err("Unknown module \"%s\"", name);
+
 		return false;
 	}
 
@@ -70,6 +72,14 @@ bool init_module(Module *module, char *name)
 		module->info_link = json_getString(*info_k);
 	else
 		module->info_link = "";
+
+	if (sscanf(json_getString(*vers_k), "%d.%d.%d", &module->v_maj, &module->v_min, &module->v_pat) != 3) {
+		err("Invalid module: invalid module version specifier");
+
+		free(config);
+		free(fullPath);
+		return false;
+	}
 
 	/* TODO: Implement hooks, routes and filter parsing */
 
