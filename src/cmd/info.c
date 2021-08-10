@@ -121,7 +121,6 @@ static void info_filter_module()
 	if (!init_module(&mod, moduleFilter)) {
 		err("Error parsing module");
 
-		free_module(&mod);
 		exit(-1);
 	}
 
