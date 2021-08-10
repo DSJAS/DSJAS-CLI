@@ -107,6 +107,11 @@ bool init_module(Module *module, char *name)
 		}
 	}
 
+	module->filter = malloc(sizeof(char*) * filt_k->u.array.length);
+	for (int i = 0; i < filt_k->u.array.length; i++) {
+		module->filter[i] = json_getString(*filt_k->u.array.values[i]);
+	}
+
 	free(fullPath);
 	free(config);
 	free(json);
@@ -119,6 +124,7 @@ void free_module(Module *module)
 {
 	free(module->path);
 	free(module->hooks);
+	free(module->filter);
 	json_value_free(module->root);
 }
 
