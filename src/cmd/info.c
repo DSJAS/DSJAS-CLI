@@ -73,7 +73,7 @@ static void info_filter_theme()
 	}
 
 	out_msg("Theme information\n");
-	out_msg("=================\n");
+	out_msg("-----------------\n");
 
 	out_msg("\t");
 	out_put("Theme name: %s\n", thm.name);
