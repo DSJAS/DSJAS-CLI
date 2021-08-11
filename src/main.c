@@ -42,16 +42,16 @@ void help()
 	puts("dsjas: DSJAS-CLI Tool");
 	puts("Usage: [-huvVqp] [section] [command] [args]");
 
-	puts("\nGlobal options:");
-	puts("\t-V: Verbose output");
-	puts("\t-q: Quiet output");
-	puts("\t-p: Set DSJAS path");
-	puts("\t-u: Print usage");
-	puts("\t-h: This message");
+	puts("\nGlobal options:\n"
+		 "\t-V: Verbose output\n"
+		 "\t-q: Quiet output\n"
+		 "\t-p: Set DSJAS path\n"
+		 "\t-u: Print usage\n"
+		 "\t-h: This message");
 
 	puts("\nCommand sections");
-	puts("\tcreate: Create themes, modules and extensions from boilerplates");
-	puts("\tinfo: Get info about a DSJAS install");
+	puts("\tcreate: Create themes, modules and extensions from boilerplates"
+		 "\tinfo: Get info about a DSJAS install");
 
 	exit(-1);
 }
