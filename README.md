@@ -31,13 +31,15 @@ make CC=COMPILER_HERE
 
 ### Developer builds
 
-Dev builds can be generated setting the ``DEBUG`` make variable, like so:
+> **NOTE:** Previous versions of the makefile would include a parameter called ``DEBUG`` which enabled debug developer builds. This is no longer supported. You must now set ``CFLAGS`` manually.
+
+To generate a debug build, you can set the ``CFLAGS`` variable to the following:
 
 ```
-make DEBUG=1
+make CFLAGS="-O0 -g"
 ```
 
-By default, this will disable optimisation and generate an executable with readable debug information. This should make it much easier to debug using tools such as ``gdb`` and ``radare2``.
+This will disable code generation optimisation and enable debug output being placed into the binary (along with some useful data for debuggers, like symbol tables being preserved etc. This will make it much easier to debug the program in programs such as ``gdb`` or ``radare2``.
 
 ## Code style
 
