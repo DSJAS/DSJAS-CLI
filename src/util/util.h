@@ -14,6 +14,7 @@
  * GNU General Public License for more details.
  */
 
+#include <stdio.h>
 #include <stdbool.h>
 #include <stdarg.h>
 
@@ -47,6 +48,8 @@ int asprintf(char **str, const char *fmt, ...);
 int vasprintf(char **str, const char *fmt, va_list args);
 
 /* FILEIO */
+void create_file(const char *path, FILE **handle);
+
 char *path_addFile(const char *path, const char *file);
 
 long file_getSize(const char *path);

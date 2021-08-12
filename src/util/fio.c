@@ -23,6 +23,15 @@
 
 #include "util.h"
 
+void create_file(const char *path, FILE **handle)
+{
+	FILE *f = fopen(path, "w+");
+	if (handle)
+		*handle = f;
+	else
+		fclose(f);
+}
+
 char *path_addFile(const char *path, const char *file)
 {
 	int pLen = strlen(path);
