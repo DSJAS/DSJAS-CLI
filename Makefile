@@ -25,18 +25,13 @@ EXE = dsjas
 INSDIR = /usr/local/bin
 
 CC = c99
-CFLAGS ?= -Wall -Wpedantic
-CFLAGS += -D_POSIX_C_SOURCE=1
+CFLAGS = -Wall -Wpedantic -O2
 
-ifeq (${DEBUG}, 1)
-	CFLAGS += -g -O0
-else
-	CFLAGS += -O2
-endif
-
+MCFLAGS = -D_POSIX_C_SOURCE=1 -Isrc/ -I${LIB_INIPATH}/src -I${LIB_JSONPPATH}
+MLDFLAGS = -lm
 
 ${EXE}: ${OBJ} ${LIB_INI} ${LIB_JSONP} ${LIB_JSONB}
-	${CC} ${LDFLAGS} -lm -o ${EXE} ${OBJ} ${LIBS}
+	${CC} ${LDFLAGS} ${MLDFLAGS} -o ${EXE} ${OBJ} ${LIBS}
 
 ${OBJ}: ${HDR}
 
@@ -47,14 +42,14 @@ ${LIB_JSONP}: ${LIB_JSONPPATH}/Makefile
 	${MAKE} -C ${LIB_JSONPPATH} CFLAGS=-O2
 
 ${LIB_JSONB}: ${LIB_JSONBPATH}/json-builder.c ${LIB_JSONBPATH}/json-builder.h
-	${CC} ${CFLAGS} -c -o ${LIB_JSONBPATH}/json-builder.o -I${LIB_JSONPPATH} ${LIB_JSONBPATH}/json-builder.c
+	${CC} ${CFLAGS} ${MCFLAGS} -c -o ${LIB_JSONBPATH}/json-builder.o ${LIB_JSONBPATH}/json-builder.c
 	${AR} rcs ${LIB_JSONB} ${LIB_JSONBPATH}/json-builder.o
 
 ${LIB_JSONPPATH}/Makefile:
 	cd ${LIB_JSONPPATH} && ./configure
 
 %.o: %.c
-	${CC} ${CFLAGS} -Isrc/ -I${LIB_INIPATH}/src -I${LIB_JSONPPATH} -o $@ -c $<
+	${CC} ${CFLAGS} ${MCFLAGS} -o $@ -c $<
 
 install: ${EXE}
 	mkdir -p ${INSDIR}
