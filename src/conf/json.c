@@ -73,6 +73,7 @@ char *json_getString(json_value val)
 		int b10 = log10(val.u.integer);
 		char *res = malloc(sizeof(char) * b10);
 		snprintf(res, b10, "%li", val.u.integer);
+		return res;
 	}
 	case json_double: {
 		char *res = malloc(sizeof(char) * 4096);
