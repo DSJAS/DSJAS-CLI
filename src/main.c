@@ -72,6 +72,11 @@ static void cleanup()
 
 int main(int argc, char **argv)
 {
+	/* Handle redirected output */
+	if (!isatty(STDOUT_FILENO) || !isatty(STDERR_FILENO)) {
+		gOpts.quiet = true;
+	}
+
 	/* Parse argument array */
 	arg_parse(&gOpts, argc, argv);
 
@@ -80,6 +85,7 @@ int main(int argc, char **argv)
 		err("Invalid DSJAS install");
 		return -1;
 	}
+
 
 	/* Init configs */
 	init_configs(&gInstall);

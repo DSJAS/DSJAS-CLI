@@ -157,5 +157,9 @@ static void outms(const char *msg)
 
 static void errms(const char *msg, const char del, const char *col)
 {
-	fprintf(stderr, "%s[%s%c%s] %s\n", TERMCOLOR_RESET, col, del, TERMCOLOR_RESET, msg);
+	if (gOpts.quiet) {
+		fprintf(stderr, "[%c] %s\n", del, msg);
+	} else {
+		fprintf(stderr, "%s[%s%c%s] %s\n", TERMCOLOR_RESET, col, del, TERMCOLOR_RESET, msg);
+	}
 }
