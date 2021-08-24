@@ -33,8 +33,7 @@ bool init_theme(Theme *theme, char *name)
 {
 	theme->name = name;
 
-	char *fullPath = path_addFile(gOpts.path, themePath);
-	theme->path = path_addFile(fullPath, name);
+	asprintf(&theme->path, "%s/%s%s", gOpts.path, themePath, name);
 
 	if (!dir_exists(theme->path)) {
 		return false;
@@ -42,7 +41,6 @@ bool init_theme(Theme *theme, char *name)
 
 	theme->enabled = (strcmp(gInstall.config.theme.cur, name) == 0);
 
-	free(fullPath);
 	return true;
 }
 

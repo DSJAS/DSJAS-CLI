@@ -33,8 +33,7 @@ static const char *modulePath = "admin/site/modules/";
 
 bool init_module(Module *module, char *name)
 {
-	char *fullPath = path_addFile(gOpts.path, modulePath);
-	module->path = path_addFile(fullPath, name);
+	asprintf(&module->path, "%s/%s%s", gOpts.path, modulePath, name);
 
 	if (!dir_exists(module->path)) {
 		err("Unknown module \"%s\"", name);
@@ -50,7 +49,6 @@ bool init_module(Module *module, char *name)
 		err("Invalid module: module configuration missing");
 
 		free(config);
-		free(fullPath);
 		return false;
 	}
 
@@ -79,7 +77,6 @@ bool init_module(Module *module, char *name)
 		err("Invalid module: invalid module version specifier");
 
 		free(config);
-		free(fullPath);
 		return false;
 	}
 
@@ -117,7 +114,6 @@ bool init_module(Module *module, char *name)
 		module->filter = NULL;
 	}
 
-	free(fullPath);
 	free(config);
 	free(json);
 	fclose(f);
