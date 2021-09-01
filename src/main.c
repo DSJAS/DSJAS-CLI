@@ -50,7 +50,7 @@ void help()
 		 "\t-h: This message");
 
 	puts("\nCommand sections");
-	puts("\tcreate: Create themes, modules and extensions from boilerplates"
+	puts("\tcreate: Create themes, modules and extensions from boilerplates\n"
 		 "\tinfo: Get info about a DSJAS install");
 
 	exit(-1);
