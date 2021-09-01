@@ -82,9 +82,6 @@ typedef struct dsjas_install {
 		struct {
 			bool udefault;
 			const char *cur;
-
-			bool validated;
-			long lastValidation;
 		} theme;
 
 		struct {

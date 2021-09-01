@@ -119,10 +119,6 @@ static void init_theme(DSJAS *state)
 			state->config.thm, "extensions:current_ui_extension", "default");
 	}
 
-	state->config.theme.lastValidation = iniparser_getlongint(
-		state->config.thm, "validation:last_validation_timestamp", 0);
-	state->config.theme.validated = (state->config.theme.lastValidation == 0);
-
 	free(filename);
 }
 
