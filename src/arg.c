@@ -104,14 +104,13 @@ bool validate_path(char *path)
 	int i = 0;
 	while (installFiles[i] != NULL) {
 		int mode = installFileModes[i];
-		char *file = path_addFile(path, installFiles[i]);
+		char file[PATH_MAX];
+		path_concat(file, path, installFiles[i]);
 
 		if ((!access(file, mode)) == 0) {
-			free(file);
 			return false;
 		}
 
-		free(file);
 		i++;
 	}
 

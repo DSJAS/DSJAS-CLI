@@ -20,6 +20,7 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <stdbool.h>
+#include <limits.h>
 
 #include "util.h"
 
@@ -32,21 +33,23 @@ void create_file(const char *path, FILE **handle)
 		fclose(f);
 }
 
-char *path_addFile(const char *path, const char *file)
+void path_concat(char *buf, const char *path, const char *file)
 {
+	if (!buf || !path || !file)
+		return;
+
 	int pLen = strlen(path);
-	int fLen = strlen(file);
+	bool delim = false;
 
-	char *newPath = malloc(sizeof(char) * (pLen * fLen));
-	strcpy(newPath, path);
-
-	if (newPath[pLen - 1] != '/') {
-		strcat(newPath, "/");
+	if (path[pLen - 1] != '/') {
+		delim = true;
 	}
 
-	strcat(newPath, file);
-
-	return newPath;
+	if (delim) {
+		snprintf(buf, PATH_MAX, "%s/%s", path, file);
+	} else {
+		snprintf(buf, PATH_MAX, "%s%s", path, file);
+	}
 }
 
 long file_size(const char *path)

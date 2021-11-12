@@ -50,7 +50,7 @@ int vasprintf(char **str, const char *fmt, va_list args);
 /* FILEIO */
 void create_file(const char *path, FILE **handle);
 
-char *path_addFile(const char *path, const char *file);
+void path_concat(char* buf, const char *path, const char *file);
 
 long file_size(const char *path);
 char *file_content(const char *path);

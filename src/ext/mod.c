@@ -41,14 +41,15 @@ bool init_module(Module *module, char *name)
 		return false;
 	}
 
-	char *config = path_addFile(module->path, "config.json");
+	char config[PATH_MAX];
+	path_concat(config, module->path, "config.json");
+
 	FILE *f = fopen(config, "r");
 	long len = file_size(config);
 
 	if (!f) {
 		err("Invalid module: module configuration missing");
 
-		free(config);
 		return false;
 	}
 
@@ -75,8 +76,6 @@ bool init_module(Module *module, char *name)
 	if (sscanf(json_getString(*vers_k), "%d.%d.%d", &module->v_maj,
 			   &module->v_min, &module->v_pat) != 3) {
 		err("Invalid module: invalid module version specifier");
-
-		free(config);
 		return false;
 	}
 
@@ -114,7 +113,6 @@ bool init_module(Module *module, char *name)
 		module->filter = NULL;
 	}
 
-	free(config);
 	free(json);
 	fclose(f);
 
