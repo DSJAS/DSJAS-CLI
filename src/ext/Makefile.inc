@@ -1,6 +1,6 @@
 # DSJAS-CLI
-# Dir: src/cmd
-# Purpose: Subcommand source tree
+# Dir: src/ext
+# Purpose: Extension/plugin management
 
 SRC += src/ext/thm.c src/ext/mod.c
 
