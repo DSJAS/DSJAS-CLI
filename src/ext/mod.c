@@ -43,7 +43,7 @@ bool init_module(Module *module, char *name)
 
 	char *config = path_addFile(module->path, "config.json");
 	FILE *f = fopen(config, "r");
-	long len = file_getSize(config);
+	long len = file_size(config);
 
 	if (!f) {
 		err("Invalid module: module configuration missing");

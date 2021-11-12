@@ -22,6 +22,6 @@
 extern global_options gOpts;
 extern DSJAS gInstall;
 
-void error_unknownCommand();
+void error_command_unknown();
 
 #endif // COMMON_H

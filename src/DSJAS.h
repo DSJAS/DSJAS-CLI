@@ -45,7 +45,7 @@ typedef struct global_options {
 } global_options;
 
 void arg_parse(global_options *opts, int argc, char **argv);
-bool path_isInstall(char *path);
+bool validate_path(char *path);
 
 /* DSJAS config/state */
 typedef enum InstallState {

@@ -24,7 +24,7 @@ void create_init()
 	if (strcmp(cmd, "theme") == 0) {
 	} else if (strcmp(cmd, "module") == 0) {
 	} else {
-		error_unknownCommand();
+		error_command_unknown();
 	}
 
 	return;

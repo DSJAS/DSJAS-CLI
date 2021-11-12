@@ -52,8 +52,8 @@ void create_file(const char *path, FILE **handle);
 
 char *path_addFile(const char *path, const char *file);
 
-long file_getSize(const char *path);
-char *file_getContents(const char *path);
+long file_size(const char *path);
+char *file_content(const char *path);
 
 bool file_exists(const char *path);
 bool dir_exists(const char *path);

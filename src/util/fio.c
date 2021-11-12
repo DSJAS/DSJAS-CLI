@@ -49,7 +49,7 @@ char *path_addFile(const char *path, const char *file)
 	return newPath;
 }
 
-long file_getSize(const char *path)
+long file_size(const char *path)
 {
 	FILE *f = fopen(path, "rb");
 	if (!f)
@@ -63,10 +63,10 @@ long file_getSize(const char *path)
 	return fsize;
 }
 
-char *file_getContents(const char *path)
+char *file_content(const char *path)
 {
 	FILE *f = fopen(path, "r");
-	long size = file_getSize(path);
+	long size = file_size(path);
 
 	if (!f) {
 		return "";

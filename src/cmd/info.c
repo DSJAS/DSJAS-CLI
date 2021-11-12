@@ -262,7 +262,7 @@ void info_init()
 	} else if (strcmp(cmd, "extension") == 0) {
 		info_extension();
 	} else {
-		error_unknownCommand();
+		error_command_unknown();
 	}
 
 	return;

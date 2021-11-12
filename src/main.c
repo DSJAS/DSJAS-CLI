@@ -81,7 +81,7 @@ int main(int argc, char **argv)
 	arg_parse(&gOpts, argc, argv);
 
 	/* Verify installation */
-	if (!path_isInstall(gOpts.path)) {
+	if (!validate_path(gOpts.path)) {
 		err("Invalid DSJAS install");
 		return -1;
 	}

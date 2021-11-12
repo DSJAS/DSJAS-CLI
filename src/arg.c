@@ -95,7 +95,7 @@ end:
 	opts->subOpts = &argv[optind + 1];
 }
 
-bool path_isInstall(char *path)
+bool validate_path(char *path)
 {
 	if (!dir_exists(path)) {
 		return false;

@@ -171,7 +171,7 @@ static void init_version(DSJAS *state)
 	}
 
 	state->version.versConfig = f;
-	long len = file_getSize(filename);
+	long len = file_size(filename);
 
 	char *cont = malloc(sizeof(char) * len);
 	fread(cont, sizeof(char), len, f);
