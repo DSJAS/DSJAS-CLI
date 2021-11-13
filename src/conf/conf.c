@@ -26,6 +26,18 @@
 
 extern global_options gOpts;
 
+/* Relative path constants */
+static const char *relConfPath = "Config.ini";
+static const char *relThemePath = "admin/site/UI/config.ini";
+static const char *relModulePath = "admin/site/modules/config.ini";
+static const char *relVersionPath = "Version.json";
+
+/* Global calculated locations */
+char confPath[PATH_MAX];
+char versionPath[PATH_MAX];
+char themeConfPath[PATH_MAX];
+char moduleConfPath[PATH_MAX];
+
 static void init_global(DSJAS *state);
 static void init_theme(DSJAS *state);
 static void init_module(DSJAS *state);
@@ -64,10 +76,9 @@ void destroy_configs(DSJAS *state)
 
 static void init_global(DSJAS *state)
 {
-	char filename[PATH_MAX];
-	path_concat(filename, gOpts.path, "Config.ini");
+	path_concat(confPath, gOpts.path, relConfPath);
 
-	state->config.glb = iniparser_load(filename);
+	state->config.glb = iniparser_load(confPath);
 
 	state->config.global.name = (char *)iniparser_getstring(
 		state->config.glb, "customization:bank_name", "");
@@ -107,10 +118,9 @@ static void init_global(DSJAS *state)
 
 static void init_theme(DSJAS *state)
 {
-	char filename[PATH_MAX];
-	path_concat(filename, gOpts.path, "admin/site/UI/config.ini");
+	path_concat(themeConfPath, gOpts.path, relThemePath);
 
-	state->config.thm = iniparser_load(filename);
+	state->config.thm = iniparser_load(themeConfPath);
 
 	state->config.theme.udefault =
 		iniparser_getboolean(state->config.thm, "config:use_default", true);
@@ -124,10 +134,9 @@ static void init_theme(DSJAS *state)
 
 static void init_module(DSJAS *state)
 {
-	char filename[PATH_MAX];
-	path_concat(filename, gOpts.path, "admin/site/modules/config.ini");
+	path_concat(moduleConfPath, gOpts.path, relModulePath);
 
-	state->config.mod = iniparser_load(filename);
+	state->config.mod = iniparser_load(moduleConfPath);
 
 	state->config.module.numInstalled =
 		iniparser_getsecnkeys(state->config.mod, "active_modules");
@@ -162,10 +171,9 @@ static void init_extension(DSJAS *state)
 
 static void init_version(DSJAS *state)
 {
-	char filename[PATH_MAX];
-	path_concat(filename, gOpts.path, "Version.json");
+	path_concat(versionPath, gOpts.path, relVersionPath);
 
-	FILE *f = fopen(filename, "r+");
+	FILE *f = fopen(versionPath, "r+");
 
 	if (!f) {
 		err("Failed to open version config file");
@@ -173,7 +181,7 @@ static void init_version(DSJAS *state)
 	}
 
 	state->version.versConfig = f;
-	long len = file_size(filename);
+	long len = file_size(versionPath);
 
 	char *cont = malloc(sizeof(char) * len);
 	fread(cont, sizeof(char), len, f);

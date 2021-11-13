@@ -96,6 +96,8 @@ int main(int argc, char **argv)
 		create_init();
 	} else if (strcmp(gOpts.section, "info") == 0) {
 		info_init();
+	} else if (strcmp(gOpts.section, "config") == 0) {
+		config_init();
 	} else {
 		err("Invalid subcommand");
 		help();

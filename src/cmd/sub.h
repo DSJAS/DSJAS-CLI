@@ -16,3 +16,4 @@
 
 void info_init();
 void create_init();
+void config_init();
