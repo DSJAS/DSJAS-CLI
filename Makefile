@@ -24,7 +24,7 @@ EXE = dsjas
 
 INSDIR = /usr/local/bin
 
-CC = c99
+CC = cc
 CFLAGS = -Wall -Wpedantic -O2
 
 MCFLAGS = -D_POSIX_C_SOURCE=1 -Isrc/ -I${LIB_INIPATH}/src -I${LIB_JSONPPATH}
