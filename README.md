@@ -13,19 +13,19 @@ Features include:
 
 DSJAS-CLI is written in C99, which means basically any modern compiler will support it. To build, you **must** first have the submodules initialised. If you did not clone with the ``recursive`` options, you need to run:
 
-```
+```shell
 git submodule update --init
 ```
 
-To build, simply run 
+To build, simply run
 
-```
+```shell
 make
 ```
 
 in the root of the project. By default, the compiler uses the ``CC`` environment variable. If this does not work for you, feel free to override it using:
 
-```
+```shell
 make CC=COMPILER_HERE
 ```
 
@@ -35,7 +35,7 @@ make CC=COMPILER_HERE
 
 To generate a debug build, you can set the ``CFLAGS`` variable to the following:
 
-```
+```shell
 make CFLAGS="-O0 -g"
 ```
 
