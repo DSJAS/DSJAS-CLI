@@ -23,7 +23,7 @@
 #include "iniparser.h"
 
 void ini_set(dictionary *ini, const char *section, const char *key,
-			 const char *val)
+	     const char *val)
 {
 	char realKey[strlen(section) + strlen(key) + 1];
 	sprintf(realKey, "%s:%s", section, key);
@@ -47,7 +47,7 @@ void ini_serialise(dictionary *ini, FILE *f)
 			char *ind = strchr(keys[i], ':');
 
 			fprintf(f, "%s=\"%s\"\n", ind + 1,
-					iniparser_getstring(ini, keys[i], ""));
+				iniparser_getstring(ini, keys[i], ""));
 		}
 
 		free(keys);

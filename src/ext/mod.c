@@ -74,7 +74,7 @@ bool init_module(Module *module, char *name)
 		module->info_link = "";
 
 	if (sscanf(json_getString(*vers_k), "%d.%d.%d", &module->v_maj,
-			   &module->v_min, &module->v_pat) != 3) {
+		   &module->v_min, &module->v_pat) != 3) {
 		err("Invalid module: invalid module version specifier");
 		return false;
 	}
@@ -105,9 +105,11 @@ bool init_module(Module *module, char *name)
 	}
 
 	if (filt_k) {
-		module->filter = malloc(sizeof(char **) * filt_k->u.array.length);
+		module->filter =
+		    malloc(sizeof(char **) * filt_k->u.array.length);
 		for (int i = 0; i < filt_k->u.array.length; i++) {
-			module->filter[i] = json_getString(*filt_k->u.array.values[i]);
+			module->filter[i] =
+			    json_getString(*filt_k->u.array.values[i]);
 		}
 	} else {
 		module->filter = NULL;
@@ -131,7 +133,7 @@ void free_module(Module *module)
 }
 
 void create_module(const char *name, const char *description,
-				   const char *info_link, const int *ver, const char **hooks,
-				   const char **events, const bool **props)
+		   const char *info_link, const int *ver, const char **hooks,
+		   const char **events, const bool **props)
 {
 }

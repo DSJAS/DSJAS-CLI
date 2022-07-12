@@ -43,15 +43,16 @@ void help()
 	puts("Usage: [-huvVqp] [section] [command] [args]");
 
 	puts("\nGlobal options:\n"
-		 "\t-V: Verbose output\n"
-		 "\t-q: Quiet output\n"
-		 "\t-p: Set DSJAS path\n"
-		 "\t-u: Print usage\n"
-		 "\t-h: This message");
+	     "\t-V: Verbose output\n"
+	     "\t-q: Quiet output\n"
+	     "\t-p: Set DSJAS path\n"
+	     "\t-u: Print usage\n"
+	     "\t-h: This message");
 
 	puts("\nCommand sections");
-	puts("\tcreate: Create themes, modules and extensions from boilerplates\n"
-		 "\tinfo: Get info about a DSJAS install");
+	puts("\tcreate: Create themes, modules and extensions from "
+	     "boilerplates\n"
+	     "\tinfo: Get info about a DSJAS install");
 
 	exit(-1);
 }
@@ -60,7 +61,7 @@ void version()
 {
 	puts("dsjas: DSJAS-CLI Tool");
 	printf("Version %i.%i.%i, built at %s %s\n", major_ver, minor_ver,
-		   patch_ver, build_date, build_time);
+	       patch_ver, build_date, build_time);
 	exit(-1);
 }
 
@@ -85,7 +86,6 @@ int main(int argc, char **argv)
 		err("Invalid DSJAS install");
 		return -1;
 	}
-
 
 	/* Init configs */
 	init_configs(&gInstall);

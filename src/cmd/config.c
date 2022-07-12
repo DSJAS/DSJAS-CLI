@@ -50,7 +50,7 @@ static void edit_all(const char *editor)
 	switch (pid) {
 	case 0:
 		execlp(editor, editor, confPath, versionPath, themeConfPath,
-			   moduleConfPath, NULL);
+		       moduleConfPath, NULL);
 		break;
 	case -1:
 		err("Fork failed");

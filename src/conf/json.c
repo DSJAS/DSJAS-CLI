@@ -105,7 +105,8 @@ long json_getInt(json_value val)
 	case json_integer:
 		return val.u.integer;
 	case json_double: {
-		wrn("Converting a double to an integer. Precision may be lost.");
+		wrn("Converting a double to an integer. Precision may be "
+		    "lost.");
 		double initial = strtod(val.u.string.ptr, NULL);
 		return (long)initial;
 	}

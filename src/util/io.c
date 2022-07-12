@@ -160,6 +160,7 @@ static void errms(const char *msg, const char del, const char *col)
 	if (gOpts.quiet) {
 		fprintf(stderr, "[%c] %s\n", del, msg);
 	} else {
-		fprintf(stderr, "%s[%s%c%s] %s\n", TERMCOLOR_RESET, col, del, TERMCOLOR_RESET, msg);
+		fprintf(stderr, "%s[%s%c%s] %s\n", TERMCOLOR_RESET, col, del,
+			TERMCOLOR_RESET, msg);
 	}
 }
